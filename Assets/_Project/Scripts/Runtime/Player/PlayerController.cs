@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     [Header("Components")]
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private HealthController healthController;
+    [SerializeField] private IFrameController iFrameController;
 
 
     private void Update()
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Collided with Enemy");
             healthController.TakeDamage(10);
+            iFrameController.EnableIFrames();
         }
     }
 

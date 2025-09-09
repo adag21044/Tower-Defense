@@ -985,6 +985,7 @@ GameObject:
   - component: {fileID: 1456743646}
   - component: {fileID: 1456743649}
   - component: {fileID: 1456743650}
+  - component: {fileID: 1456743651}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1118,6 +1119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 1456743646}
   healthController: {fileID: 1456743649}
+  iFrameController: {fileID: 1456743651}
 --- !u!114 &1456743649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1130,6 +1132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 489a181704524054cadeade870d08369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
 --- !u!65 &1456743650
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1151,6 +1154,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 15, y: 15, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1456743651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456743642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e076298ba9bae604eb383baffc9ae105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iFrameDuration: 2
+  playerCollider: {fileID: 1456743650}
+  playerSpriteRenderer: {fileID: 1456743643}
 --- !u!1 &1587788562
 GameObject:
   m_ObjectHideFlags: 0
