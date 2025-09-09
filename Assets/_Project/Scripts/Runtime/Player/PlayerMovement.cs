@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerMovement3D : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     private float lookSpead = 2f;
@@ -18,14 +18,16 @@ public class PlayerMovement3D : MonoBehaviour
         // Y ekseninde hareketi kitliyoruz
         rb.constraints |= RigidbodyConstraints.FreezePositionY;
     }
-    private void Update()
+
+    public void HandleMovement()
     {
+        // Player movement
         float moveX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         float moveZ = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
 
         transform.Translate(moveX, 0, moveZ);
 
-
+        // Player rotation
         transform.localRotation = Quaternion.Euler(rotationY, rotationX, 0f);
     }
 }
