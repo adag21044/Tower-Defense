@@ -7,8 +7,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private HealthController healthController;
 
-    // Events
-    public static event Action OnPlayerDeath;
 
     private void Update()
     {
@@ -22,5 +20,28 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Collided with Enemy");
             healthController.TakeDamage(10);
         }
+    }
+
+    private void OnEnable()
+    {
+        healthController.OnDeath += HandlePlayerDeath;
+        healthController.OnHealthChanged += HandleHealthChanged;
+    }
+
+    private void OnDisable()
+    {
+        healthController.OnDeath -= HandlePlayerDeath;
+        healthController.OnHealthChanged -= HandleHealthChanged;
+    }
+
+    private void HandlePlayerDeath()
+    {
+        Debug.Log("Player has died!");
+        // Disable movement, play anim etc.
+    }
+
+    private void HandleHealthChanged(int currentHealth)
+    {
+        Debug.Log("Health is now: " + currentHealth);
     }
 }
