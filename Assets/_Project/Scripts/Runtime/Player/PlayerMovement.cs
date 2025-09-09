@@ -3,12 +3,21 @@ using UnityEngine;
 
 public class PlayerMovement3D : MonoBehaviour
 {
-    private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 5f;
     private float lookSpead = 2f;
 
     private float rotationX = 0f;
     private float rotationY = 0f;
+    [SerializeField] private Rigidbody rb;
 
+    private void Awake()
+    {
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+        // Y ekseninde hareketi kitliyoruz
+        rb.constraints |= RigidbodyConstraints.FreezePositionY;
+    }
     private void Update()
     {
         float moveX = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
