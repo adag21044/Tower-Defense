@@ -16,8 +16,6 @@ public class PlayerMovement3D : MonoBehaviour
 
         transform.Translate(moveX, 0, moveZ);
 
-        rotationX += Input.GetAxis("Mouse X") * lookSpead;
-        rotationY = Mathf.Clamp(rotationY, -90f, 90f);
 
         transform.localRotation = Quaternion.Euler(rotationY, rotationX, 0f);
     }
