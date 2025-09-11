@@ -29,4 +29,14 @@ public class PlayerMovement : MonoBehaviour
         // Player rotation
         transform.localRotation = Quaternion.Euler(rotationY, rotationX, 0f);
     }
+
+    public void ResetPosition()
+    {
+        Debug.Log("Resetting Player Position");
+        
+        transform.position = new Vector3(0f, -2f, -4f);
+        rotationX = 0f;
+        rotationY = 0f;
+        transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+    }
 }

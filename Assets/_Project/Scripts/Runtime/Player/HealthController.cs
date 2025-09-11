@@ -11,7 +11,7 @@ public class HealthController : MonoBehaviour
 
     public event Action OnDeath;
     public event Action<int> OnHealthChanged;
-    
+
 
     private void Start()
     {
@@ -37,5 +37,12 @@ public class HealthController : MonoBehaviour
     {
         Debug.Log("Player has died.");
         OnDeath?.Invoke();
+    }
+    
+    public void ResetHealth()
+    {
+        health = maxHealth;
+        healthBarUI.UpdateHealthBar(health, maxHealth);
+        OnHealthChanged?.Invoke(health);
     }
 }

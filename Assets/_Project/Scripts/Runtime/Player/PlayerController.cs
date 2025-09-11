@@ -40,10 +40,20 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player has died!");
         // Disable movement, play anim etc.
+
+        Respawn();
     }
 
     private void HandleHealthChanged(int currentHealth)
     {
         Debug.Log("Health is now: " + currentHealth);
+    }
+
+    private void Respawn()
+    {
+        Debug.Log("Player has respawned!");
+        // Reset health, position etc.
+        healthController.ResetHealth();
+        playerMovement.ResetPosition();
     }
 }
