@@ -18,12 +18,8 @@ public class EnemyMover : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        MoveAlongPath();
-    }
 
-    private void MoveAlongPath()
+    public void MoveAlongPath()
     {
         if (waypoints == null || idx >= waypoints.Length - 1) return;
 
