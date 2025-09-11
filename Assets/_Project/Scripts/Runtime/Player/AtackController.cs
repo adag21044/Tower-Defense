@@ -10,19 +10,28 @@ public class AtackController : MonoBehaviour
     [Header("Laser")]
     [SerializeField] private float fireRate = 4f;
     [SerializeField] private float damagePerShot = 10f;
-    [SerializeField] private Transform muzzle; // laser start point
-    [SerializeField] private GameObject laserPrefab; // your laser prefab
+    [SerializeField] private Transform muzzle; 
+    [SerializeField] private GameObject laserPrefab; 
 
     private float nextFireTime;
 
     private void Awake()
     {
-        if (muzzle == null) muzzle = transform; // fallback
+        if (muzzle == null) muzzle = transform;
     }
 
     private void Update()
     {
-        // find closest target
+        Transform target = FindClosestTarget();
+        if (target == null) return;
+
+        TryFireAtTarget(target);
+    }
+
+    // --- Yeni fonksiyonlar ---
+
+    private Transform FindClosestTarget()
+    {
         Collider[] hits = Physics.OverlapSphere(transform.position, range);
         Transform closest = null;
         float closestDistSqr = Mathf.Infinity;
@@ -38,38 +47,36 @@ public class AtackController : MonoBehaviour
             }
         }
 
-        if (closest == null) return;
+        return closest;
+    }
 
-        Vector3 dir = (closest.position - muzzle.position).normalized;
+    private void TryFireAtTarget(Transform target)
+    {
+        if (Time.time < nextFireTime) return;
 
-        if (Time.time >= nextFireTime)
-        {
-            nextFireTime = Time.time + (1f / fireRate);
-            ShootLaser(dir, closest);
-        }
+        nextFireTime = Time.time + (1f / fireRate);
+        Vector3 dir = (target.position - muzzle.position).normalized;
+        ShootLaser(dir, target);
     }
 
     private void ShootLaser(Vector3 dir, Transform target)
     {
-        // Spawn laser projectile from pool (or Instantiate if pool yoksa)
         GameObject laser = PoolManager.Instance != null
             ? PoolManager.Instance.Spawn(laserPrefab, muzzle.position, Quaternion.LookRotation(dir))
             : Instantiate(laserPrefab, muzzle.position, Quaternion.LookRotation(dir));
 
-        // Configure projectile
         if (laser.TryGetComponent<LaserProjectile>(out var proj))
         {
             proj.target  = target;
             proj.damage  = (int)damagePerShot;
             proj.hitMask = hitMask;
-            proj.homing  = true; // veya inspector’dan kontrol
+            proj.homing  = true;
         }
         else
         {
             Debug.LogWarning("Laser prefab does not have LaserProjectile script!");
         }
     }
-
 
     private void OnDrawGizmosSelected()
     {
