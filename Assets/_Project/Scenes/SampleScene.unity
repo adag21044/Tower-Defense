@@ -1083,6 +1083,7 @@ GameObject:
   - component: {fileID: 1099380823}
   - component: {fileID: 1099380825}
   - component: {fileID: 1099380824}
+  - component: {fileID: 1099380826}
   m_Layer: 5
   m_Name: HealthbarOut
   m_TagString: Untagged
@@ -1148,6 +1149,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099380822}
   m_CullTransparentMesh: 1
+--- !u!114 &1099380826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099380822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2671f7076c1219b429e074608b429f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthFill: {fileID: 1686583798}
+  tweenDuration: 0.3
 --- !u!1 &1456743642
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,6 +1326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  maxHealth: 100
+  healthBarUI: {fileID: 1099380826}
 --- !u!65 &1456743650
 BoxCollider:
   m_ObjectHideFlags: 0
