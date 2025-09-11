@@ -231,6 +231,8 @@ GameObject:
   - component: {fileID: 288215945}
   - component: {fileID: 288215944}
   - component: {fileID: 288215947}
+  - component: {fileID: 288215949}
+  - component: {fileID: 288215948}
   m_Layer: 0
   m_Name: Enemy-Sprites to billboard
   m_TagString: Enemy
@@ -341,6 +343,32 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.16, y: 0.16, z: 0.021102957}
   m_Center: {x: 0, y: 0, z: -0.0047140224}
+--- !u!114 &288215948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288215943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 586dc9641b2e71c4a9b94c244ad88bf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 30
+--- !u!114 &288215949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288215943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f9c7e32c0fcc94a942a9cd50c85dbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHealthController: {fileID: 288215948}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,6 +1191,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthFill: {fileID: 1686583798}
   tweenDuration: 0.3
+--- !u!1 &1415172545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1415172547}
+  - component: {fileID: 1415172546}
+  m_Layer: 0
+  m_Name: PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1415172546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415172545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a91a32023989d8438ca373752c6611d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1415172547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415172545}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6506367, y: -1.2695678, z: 0.54592276}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1456743642
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,3 +1727,4 @@ SceneRoots:
   - {fileID: 927459476}
   - {fileID: 1909351534}
   - {fileID: 1093618953}
+  - {fileID: 1415172547}

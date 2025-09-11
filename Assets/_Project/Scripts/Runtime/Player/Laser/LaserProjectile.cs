@@ -4,50 +4,63 @@ public class LaserProjectile : MonoBehaviour
 {
     [SerializeField] public float speed = 25f;
     [SerializeField] public float maxLife = 2f;
-    [SerializeField] public bool homing = true; // target hareket ediyorsa takip etsin mi
+    [SerializeField] public bool homing = true;
 
-    [HideInInspector] public Transform target;  // AtackController atayacak
+    [HideInInspector] public Transform target;
     [HideInInspector] public int damage;
     [HideInInspector] public LayerMask hitMask;
 
     private float lifeTimer;
+
+    private void OnEnable()
+    {
+        // Reset transient state whenever pulled from pool
+        lifeTimer = 0f;
+        // tip: reset trail/particle if needed (clear trail, restart particle, etc.)
+        var trail = GetComponent<TrailRenderer>();
+        if (trail) trail.Clear();
+    }
+
+    private void OnDisable()
+    {
+        // Optional: clear refs to avoid holding onto dead targets
+        target = null;
+    }
 
     private void Update()
     {
         lifeTimer += Time.deltaTime;
         if (lifeTimer >= maxLife)
         {
-            Destroy(gameObject);
+            PoolManager.Instance.Despawn(gameObject);
             return;
         }
 
-        // Hareket yönü
-        Vector3 dir;
-        if (homing && target != null)
-            dir = (target.position - transform.position).normalized;
-        else
-            dir = transform.forward;
+        // Movement direction
+        Vector3 dir = (homing && target != null)
+            ? (target.position - transform.position).normalized
+            : transform.forward;
 
-        // Tünellemeyi engellemek için raycast
         float step = speed * Time.deltaTime;
-        if (Physics.Raycast(transform.position, dir, out RaycastHit hit, step + 0.1f, hitMask))
+
+        // Prevent tunneling (short ray ahead)
+        if (Physics.Raycast(transform.position, dir, out RaycastHit hit, step + 0.1f, hitMask, QueryTriggerInteraction.Ignore))
         {
-            // Hasar uygula
-            var health = hit.collider.GetComponent<HealthController>();
+            var health = hit.collider.GetComponent<EnemyHealthController>();
             if (health != null)
             {
                 health.TakeDamage(damage);
             }
 
-            // İstersen burada çarpma VFX’i oluştur
-            Destroy(gameObject);
+            // TODO: spawn hit VFX via pool if you want
+            PoolManager.Instance.Despawn(gameObject);
             return;
         }
 
-        // İleri hareket
+        // Move forward
         transform.position += dir * step;
 
-        // Yönü güncelle (görsel doğru baksın)
+        // Align visual
         if (dir.sqrMagnitude > 0.0001f)
             transform.rotation = Quaternion.LookRotation(dir);
     }

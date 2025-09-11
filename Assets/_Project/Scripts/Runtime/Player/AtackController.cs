@@ -51,20 +51,25 @@ public class AtackController : MonoBehaviour
 
     private void ShootLaser(Vector3 dir, Transform target)
     {
-        // Instantiate laser prefab
-        GameObject laser = Instantiate(laserPrefab, muzzle.position, Quaternion.LookRotation(dir));
+        // Spawn laser projectile from pool (or Instantiate if pool yoksa)
+        GameObject laser = PoolManager.Instance != null
+            ? PoolManager.Instance.Spawn(laserPrefab, muzzle.position, Quaternion.LookRotation(dir))
+            : Instantiate(laserPrefab, muzzle.position, Quaternion.LookRotation(dir));
 
-        // Eğer lazer kendi kendine yok olacaksa prefabın içinde Destroy scripti olmalı
-        // Yoksa burada Destroy ekle:
-        Destroy(laser, 2f);
-
-        // Hedefe doğrudan damage uygula (anlık hasar gibi)
-        var health = target.GetComponent<HealthController>();
-        if (health != null)
+        // Configure projectile
+        if (laser.TryGetComponent<LaserProjectile>(out var proj))
         {
-            health.TakeDamage((int)damagePerShot);
+            proj.target  = target;
+            proj.damage  = (int)damagePerShot;
+            proj.hitMask = hitMask;
+            proj.homing  = true; // veya inspector’dan kontrol
+        }
+        else
+        {
+            Debug.LogWarning("Laser prefab does not have LaserProjectile script!");
         }
     }
+
 
     private void OnDrawGizmosSelected()
     {
