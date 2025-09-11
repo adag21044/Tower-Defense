@@ -20,6 +20,11 @@ public class EnemyMover : MonoBehaviour
 
     private void Update()
     {
+        MoveAlongPath();
+    }
+
+    private void MoveAlongPath()
+    {
         if (waypoints == null || idx >= waypoints.Length - 1) return;
 
         Vector3 target = waypoints[idx + 1].position;
