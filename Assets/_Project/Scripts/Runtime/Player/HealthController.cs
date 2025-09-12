@@ -38,11 +38,27 @@ public class HealthController : MonoBehaviour
         Debug.Log("Player has died.");
         OnDeath?.Invoke();
     }
-    
+
     public void ResetHealth()
     {
         health = maxHealth;
         healthBarUI.UpdateHealthBar(health, maxHealth);
         OnHealthChanged?.Invoke(health);
+    }
+    
+    private void OnEnable()
+    {
+        EnemyMover.OnEnemyReachedEnd += HandleEnemyReachedEnd;
+    }
+
+    private void OnDisable()
+    {
+        EnemyMover.OnEnemyReachedEnd -= HandleEnemyReachedEnd;
+    }
+
+    private void HandleEnemyReachedEnd()
+    {
+        TakeDamage(10);
+        Debug.Log("Player took damage because an enemy reached the end.");
     }
 }

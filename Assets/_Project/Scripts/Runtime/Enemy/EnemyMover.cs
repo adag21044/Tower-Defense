@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+
 
 public class EnemyMover : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class EnemyMover : MonoBehaviour
     [Header("Path")]
     [SerializeField] private Transform[] waypoints; // Inspector’dan ayarlanacak
     private int idx = 0;
+    public static event Action OnEnemyReachedEnd;
 
     private void Start()
     {
@@ -30,6 +33,12 @@ public class EnemyMover : MonoBehaviour
         if (Vector3.Distance(transform.position, target) <= waypointThreshold)
         {
             idx++;
+        }
+
+        if (idx >= waypoints.Length - 1)
+        {
+            Debug.Log("Enemy reached the end of the path.");
+            OnEnemyReachedEnd?.Invoke();
         }
     }
 }
