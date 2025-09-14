@@ -44,4 +44,33 @@ public class EnemyMover : MonoBehaviour
             OnEnemyReachedEnd?.Invoke();
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        if (waypoints == null || waypoints.Length == 0) return;
+
+        // Waypointler arası çizgi
+        Gizmos.color = Color.green;
+        for (int i = 0; i < waypoints.Length - 1; i++)
+        {
+            if (waypoints[i] != null && waypoints[i + 1] != null)
+            {
+                Gizmos.DrawLine(waypoints[i].position, waypoints[i + 1].position);
+            }
+        }
+
+        // Başlangıç noktası
+        if (waypoints[0] != null)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(waypoints[0].position, 0.3f);
+        }
+
+        // Bitiş noktası
+        if (waypoints[waypoints.Length - 1] != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawCube(waypoints[waypoints.Length - 1].position, Vector3.one * 0.4f);
+        }
+    }
 }
