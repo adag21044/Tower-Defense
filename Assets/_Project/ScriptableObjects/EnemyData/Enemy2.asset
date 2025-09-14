@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Enemy2
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color: {r: 1, g: 0, b: 0, a: 1}
   maxHealth: 100
   damage: 10

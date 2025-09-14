@@ -201,6 +201,7 @@ MonoBehaviour:
   enemyHealthController: {fileID: 48411871}
   enemyData: {fileID: 0}
   enemyMover: {fileID: 0}
+  spriteRenderer: {fileID: 0}
 --- !u!65 &48411873
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -603,6 +604,7 @@ MonoBehaviour:
   enemyHealthController: {fileID: 288215948}
   enemyData: {fileID: 11400000, guid: 0d65a9202ce12c44c819c98eb9b3b852, type: 2}
   enemyMover: {fileID: 288215950}
+  spriteRenderer: {fileID: 288215944}
 --- !u!114 &288215950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2598,6 +2600,7 @@ MonoBehaviour:
   enemyHealthController: {fileID: 1200211538}
   enemyData: {fileID: 0}
   enemyMover: {fileID: 0}
+  spriteRenderer: {fileID: 0}
 --- !u!65 &1200211540
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3280,6 +3283,7 @@ MonoBehaviour:
   enemyHealthController: {fileID: 1731105278}
   enemyData: {fileID: 11400000, guid: df8f5f01e4f7b4d4baec74f0710cd642, type: 2}
   enemyMover: {fileID: 1731105284}
+  spriteRenderer: {fileID: 1731105281}
 --- !u!65 &1731105280
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3456,6 +3460,7 @@ MonoBehaviour:
   enemyHealthController: {fileID: 1836526351}
   enemyData: {fileID: 0}
   enemyMover: {fileID: 0}
+  spriteRenderer: {fileID: 0}
 --- !u!65 &1836526353
 BoxCollider:
   m_ObjectHideFlags: 0

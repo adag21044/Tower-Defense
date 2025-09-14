@@ -12,11 +12,12 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] private Transform[] waypoints; // Inspector’dan ayarlanacak
     private int idx = 0;
     public static event Action OnEnemyReachedEnd;
+    public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
 
     private void Start()
     {
         waypoints[0].position = this.transform.position;
-        
+
         if (waypoints != null && waypoints.Length > 0)
         {
             transform.position = waypoints[0].position;
