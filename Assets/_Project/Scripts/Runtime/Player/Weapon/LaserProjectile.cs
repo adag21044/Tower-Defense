@@ -7,10 +7,22 @@ public class LaserProjectile : MonoBehaviour
     [SerializeField] public bool homing = true;
 
     [HideInInspector] public Transform target;
-    [HideInInspector] public int damage;
+    [HideInInspector] public float damage;
     [HideInInspector] public LayerMask hitMask;
 
     private float lifeTimer;
+    [SerializeField] private WeaponConfig weaponConfig;
+
+    private void Awake()
+    {
+        damage = weaponConfig.damage;
+        speed = weaponConfig.projectileSpeed;
+        maxLife = weaponConfig.range / weaponConfig.projectileSpeed;
+
+        Debug.Log($"[Laser] Speed set to {speed}");
+        Debug.Log($"[Laser] MaxLife set to {maxLife}");
+        Debug.Log($"[Laser] Damage set to {damage}");
+    }
 
     private void OnEnable()
     {

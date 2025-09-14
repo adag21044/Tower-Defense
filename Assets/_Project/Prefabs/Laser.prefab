@@ -161,6 +161,7 @@ MonoBehaviour:
   hitMask:
     serializedVersion: 2
     m_Bits: 0
+  weaponConfig: {fileID: 11400000, guid: 1397df06e412d494b8414862a00c1c23, type: 2}
 --- !u!114 &-1839900438318479101
 MonoBehaviour:
   m_ObjectHideFlags: 0

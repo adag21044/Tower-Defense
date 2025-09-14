@@ -26,9 +26,16 @@ public class AtackController : MonoBehaviour
     [Header("Test")]
     [SerializeField] private bool enableLaser = true;
 
+    [SerializeField] private WeaponConfig weaponConfig;
+
     private void Awake()
     {
         if (muzzle == null) muzzle = transform;
+
+        range = weaponConfig.range;
+        fireRate = weaponConfig.fireRate;
+        damagePerShot = weaponConfig.damage;
+        
     }
 
     private void Update()
