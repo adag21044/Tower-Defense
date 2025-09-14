@@ -15,6 +15,8 @@ public class EnemyMover : MonoBehaviour
 
     private void Start()
     {
+        waypoints[0].position = this.transform.position;
+        
         if (waypoints != null && waypoints.Length > 0)
         {
             transform.position = waypoints[0].position;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Tower Defense/EnemyData")]
+[CreateAssetMenu(fileName= "EnemyData", menuName = "Data/Enemy Definition")]
 public class EnemyData : ScriptableObject
 {
     public float moveSpeed = 2f;

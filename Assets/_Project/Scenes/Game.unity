@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 31543688}
   m_Layer: 0
-  m_Name: Waypoint2 (1)
+  m_Name: Waypoint6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -622,6 +622,10 @@ MonoBehaviour:
   - {fileID: 2053239974}
   - {fileID: 1419758302}
   - {fileID: 332733415}
+  - {fileID: 405130210}
+  - {fileID: 31543688}
+  - {fileID: 1007756911}
+  - {fileID: 1716720809}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,7 +903,7 @@ GameObject:
   m_Component:
   - component: {fileID: 405130210}
   m_Layer: 0
-  m_Name: Waypoint1(Start Point) (1)
+  m_Name: Waypoint5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1587,7 +1591,7 @@ Transform:
   m_GameObject: {fileID: 853055022}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30.88, y: -4.7, z: 54}
+  m_LocalPosition: {x: 35.29, y: -4.7, z: 54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2111,7 +2115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1007756911}
   m_Layer: 0
-  m_Name: Waypoint3 (1)
+  m_Name: Waypoint7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3204,7 +3208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1716720809}
   m_Layer: 0
-  m_Name: Waypoint4 (1)
+  m_Name: Waypoint8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3242,12 +3246,12 @@ GameObject:
   - component: {fileID: 1731105278}
   - component: {fileID: 1731105284}
   m_Layer: 0
-  m_Name: Enemy-Sprites to billboard (1)
+  m_Name: Enemy2-Sprites to billboard
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1731105278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3274,8 +3278,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealthController: {fileID: 1731105278}
-  enemyData: {fileID: 0}
-  enemyMover: {fileID: 0}
+  enemyData: {fileID: 11400000, guid: df8f5f01e4f7b4d4baec74f0710cd642, type: 2}
+  enemyMover: {fileID: 1731105284}
 --- !u!65 &1731105280
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3373,7 +3377,7 @@ Transform:
   m_GameObject: {fileID: 1731105277}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.919998, y: -1.55, z: 47.66}
+  m_LocalPosition: {x: 35.29, y: -4.7, z: 54}
   m_LocalScale: {x: 10.23, y: 10.23, z: 10.23}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -3393,7 +3397,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   waypointThreshold: 0.05
-  waypoints: []
+  waypoints:
+  - {fileID: 853055023}
+  - {fileID: 2053239974}
+  - {fileID: 1419758302}
+  - {fileID: 332733415}
+  - {fileID: 405130210}
+  - {fileID: 31543688}
+  - {fileID: 1007756911}
+  - {fileID: 1716720809}
 --- !u!1 &1836526350
 GameObject:
   m_ObjectHideFlags: 0
@@ -3948,12 +3960,12 @@ SceneRoots:
   - {fileID: 1093618953}
   - {fileID: 1415172547}
   - {fileID: 853055023}
-  - {fileID: 405130210}
   - {fileID: 2053239974}
-  - {fileID: 31543688}
   - {fileID: 1419758302}
-  - {fileID: 1007756911}
   - {fileID: 332733415}
+  - {fileID: 405130210}
+  - {fileID: 31543688}
+  - {fileID: 1007756911}
   - {fileID: 1716720809}
   - {fileID: 1986008027}
   - {fileID: 655757429}
