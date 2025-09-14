@@ -13,8 +13,6 @@ public class WaveSpawner : MonoBehaviour
     private void Start()
     {
         isReadyToCountdown = true;
-
-        
     }
 
     private void Update()
