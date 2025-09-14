@@ -13,6 +13,7 @@ public class EnemyMover : MonoBehaviour
     private int idx = 0;
     public static event Action OnEnemyReachedEnd;
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
+    private int index;
 
     private void Start()
     {
@@ -72,5 +73,27 @@ public class EnemyMover : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawCube(waypoints[waypoints.Length - 1].position, Vector3.one * 0.4f);
         }
+    }
+
+    public void SetPath(Transform[] wps)
+    {
+        waypoints = wps;
+        index = 0;
+
+        if (waypoints != null && waypoints.Length > 0)
+            transform.position = waypoints[0].position;
+    }
+
+    private void Update()
+    {
+        if (waypoints == null || waypoints.Length < 2) return;
+        if (index >= waypoints.Length - 1) return;
+
+        Vector3 target = waypoints[index + 1].position;
+        float step = moveSpeed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, target, step);
+
+        if (Vector3.Distance(transform.position, target) <= waypointThreshold)
+            index++;
     }
 }
