@@ -55,4 +55,12 @@ public class EnemyController : MonoBehaviour
     {
         enemyMover.MoveAlongPath();
     }
+
+    public void SetData(EnemyData data)
+    {
+        enemyData = data;
+        if (enemyMover != null) enemyMover.MoveSpeed = data.moveSpeed;
+        if (enemyHealthController != null) enemyHealthController.TakeDamage(-data.maxHealth); // reset health
+        if (spriteRenderer != null) spriteRenderer.color = data.color;
+    }
 }

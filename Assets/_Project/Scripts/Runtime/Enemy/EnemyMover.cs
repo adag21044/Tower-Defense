@@ -73,4 +73,15 @@ public class EnemyMover : MonoBehaviour
             Gizmos.DrawCube(waypoints[waypoints.Length - 1].position, Vector3.one * 0.4f);
         }
     }
+
+    public void SetWaypoints(Transform[] points)
+    {
+        waypoints = points;
+        idx = 0;
+        
+        if (waypoints != null && waypoints.Length > 0)
+        {
+            transform.position = waypoints[0].position;
+        }
+    }
 }

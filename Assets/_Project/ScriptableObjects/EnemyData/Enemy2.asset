@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1385445843f81da4ca720979c06e5eb6, type: 3}
   m_Name: Enemy2
   m_EditorClassIdentifier: 
+  prefab: {fileID: 536496045556235249, guid: 6a9ab230e8a6c044a83abdfc985830aa, type: 3}
   moveSpeed: 2
   color: {r: 1, g: 0, b: 0, a: 1}
   maxHealth: 100
