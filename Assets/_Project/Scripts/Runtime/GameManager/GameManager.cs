@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,41 +8,48 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BaseHealthController baseHealthController;
     [SerializeField] private GameObject retryPanel;
 
+    [System.Obsolete]
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
+
+        // Sahne yüklenince referansları yeniden bul
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void OnEnable()
+    [System.Obsolete]
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        playerController.healthController.OnDeath += RetryPanel;
-        baseHealthController.OnBaseDestroyed += RetryPanel;
+        playerController = FindObjectOfType<PlayerController>();
+        baseHealthController = FindObjectOfType<BaseHealthController>();
+
+        if (playerController != null)
+            playerController.healthController.OnDeath += RetryPanel;
+
+        if (baseHealthController != null)
+            baseHealthController.OnBaseDestroyed += RetryPanel;
     }
 
-    private void OnDisable()
+    [System.Obsolete]
+    private void OnDestroy()
     {
-        playerController.healthController.OnDeath -= RetryPanel;
-        baseHealthController.OnBaseDestroyed -= RetryPanel;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     public void Retry()
     {
-        // Implement retry logic, e.g., reload the current scene
-        UnityEngine.SceneManagement.SceneManager.LoadScene(
-            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void RetryPanel()
     {
-        // Show retry panel logic here
         Debug.Log("Show Retry Panel");
-
         retryPanel.SetActive(true);
     }
 }
