@@ -9,41 +9,14 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
+        // Cache components
+        if (!enemyHealthController) enemyHealthController = GetComponent<EnemyHealthController>();
+        if (!enemyMover) enemyMover = GetComponent<EnemyMover>();
+        if (!spriteRenderer) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
         if (enemyData != null)
         {
-            enemyHealthController = GetComponent<EnemyHealthController>();
-            enemyMover = GetComponent<EnemyMover>();
-
-            enemyHealthController = GetComponent<EnemyHealthController>();
-            enemyMover = GetComponent<EnemyMover>();
-
-            if (enemyHealthController != null)
-            {
-                enemyHealthController = GetComponent<EnemyHealthController>();
-            }
-
-            if (enemyMover != null)
-            {
-                enemyMover = GetComponent<EnemyMover>();
-            }
-
-            // Apply data to components
-            if (enemyHealthController != null)
-            {
-                enemyHealthController = GetComponent<EnemyHealthController>();
-            }
-
-            if (enemyMover != null)
-            {
-                enemyMover = GetComponent<EnemyMover>();
-                enemyMover.MoveSpeed = enemyData.moveSpeed;
-            }
-
-            if (spriteRenderer != null)
-            {
-                spriteRenderer = GetComponent<SpriteRenderer>();
-                spriteRenderer.color = enemyData.color;
-            }
+            Apply(enemyData);
         }
         else
         {
@@ -53,14 +26,46 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        enemyMover.MoveAlongPath();
+        if (enemyMover != null)
+            enemyMover.MoveAlongPath();
     }
 
     public void SetData(EnemyData data)
     {
         enemyData = data;
-        if (enemyMover != null) enemyMover.MoveSpeed = data.moveSpeed;
-        if (enemyHealthController != null) enemyHealthController.TakeDamage(-data.maxHealth); // reset health
-        if (spriteRenderer != null) spriteRenderer.color = data.color;
+
+        if (enemyMover) enemyMover.MoveSpeed = data.moveSpeed;
+        if (enemyHealthController) enemyHealthController.SetMaxHealth(data.maxHealth);
+        if (spriteRenderer) spriteRenderer.color = data.color;
+
+        if (enemyMover && data.pathData != null && data.pathData.waypoints.Length > 0)
+            enemyMover.SetWaypoints(data.pathData.waypoints);
+    }
+
+    private void Reset()
+    {
+        if (!enemyHealthController) enemyHealthController = GetComponent<EnemyHealthController>();
+        if (!enemyMover) enemyMover = GetComponent<EnemyMover>();
+        if (!spriteRenderer) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
+
+    // Called right after Spawn()
+    public void Apply(EnemyData newData)
+    {
+        enemyData = newData;
+
+        if (enemyMover)
+        {
+            enemyMover.MoveSpeed = enemyData.moveSpeed;
+
+            if (enemyData.pathData != null && enemyData.pathData.waypoints.Length > 0)
+                enemyMover.SetWaypoints(enemyData.pathData.waypoints);
+        }
+
+        if (enemyHealthController)
+            enemyHealthController.SetMaxHealth(enemyData.maxHealth);
+
+        if (spriteRenderer)
+            spriteRenderer.color = enemyData.color;
     }
 }

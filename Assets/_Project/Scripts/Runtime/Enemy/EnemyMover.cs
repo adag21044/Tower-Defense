@@ -42,6 +42,7 @@ public class EnemyMover : MonoBehaviour
         {
             Debug.Log("Enemy reached the end of the path.");
             OnEnemyReachedEnd?.Invoke();
+            PoolManager.Instance.Despawn(gameObject); // pooling-friendly end
         }
     }
 
@@ -74,14 +75,28 @@ public class EnemyMover : MonoBehaviour
         }
     }
 
-    public void SetWaypoints(Transform[] points)
+    public void SetWaypoints(Vector3[] points)
     {
-        waypoints = points;
-        idx = 0;
-        
-        if (waypoints != null && waypoints.Length > 0)
+        if (points == null || points.Length == 0) return;
+
+        waypoints = new Transform[points.Length];
+        for (int i = 0; i < points.Length; i++)
         {
-            transform.position = waypoints[0].position;
+            // runtime dummy waypoint objeleri oluştur
+            GameObject wp = new GameObject("WP_" + i);
+            wp.transform.position = points[i];
+            waypoints[i] = wp.transform;
         }
+
+        idx = 0;
+        transform.position = waypoints[0].position;
+    }
+
+
+    private void OnEnable()
+    {
+        idx = 0; // reset path index on spawn
+        if (waypoints != null && waypoints.Length > 0)
+            transform.position = waypoints[0].position; // start at first waypoint
     }
 }

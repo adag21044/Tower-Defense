@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -22,17 +23,36 @@ public class WaveSpawner : MonoBehaviour
 
     private void Awake()
     {
-        // Sahnede Path objesini bul ve waypointleri cachele
-        var path = FindObjectOfType<EnemyPath>();
-        if (path != null)
-        {
-            cachedWaypoints = path.Points;
-        }
+        var enemyPath = FindObjectOfType<EnemyPath>();
+        if (enemyPath != null)
+            cachedWaypoints = enemyPath.Points;
         else
+            Debug.LogError("Path not found!");
+
+
+    }
+
+    private void Start()
+    {
+        if (waves == null) return;
+
+        var uniques = waves
+            .Where(w => w != null && w.enemyTypes != null)
+            .SelectMany(w => w.enemyTypes)
+            .Where(d => d != null && d.prefab != null)
+            .Select(d => d.prefab)
+            .Distinct();
+
+        foreach (var p in uniques)
         {
-            Debug.LogError("Path object not found in scene!");
+            if (PoolManager.Instance != null)
+                PoolManager.Instance.Prewarm(p, 10);
+            else
+                Debug.LogError("PoolManager.Instance is null in Start!");
         }
     }
+
+
 
     private void Update()
     {
@@ -63,28 +83,17 @@ public class WaveSpawner : MonoBehaviour
         if (!canSpawn || Time.time < nextSpawnTime) return;
 
         EnemyData data = currentWave.enemyTypes[Random.Range(0, currentWave.enemyTypes.Length)];
-
         GameObject enemy = PoolManager.Instance.Spawn(data.prefab, spawnPoint.position, Quaternion.identity);
 
         var controller = enemy.GetComponent<EnemyController>();
-        if (controller != null)
-        {
-            controller.SetData(data);
+    if (controller != null)
+    {
+        controller.Apply(data); // sadece EnemyData veriyoruz
+    }
 
-            // Waypoints atama
-            var mover = enemy.GetComponent<EnemyMover>();
-            if (mover != null)
-            {
-                mover.SetWaypoints(pathWaypoints);
-            }
-        }
 
         currentWave.noOfEnemies--;
         nextSpawnTime = Time.time + currentWave.spawnInterval;
-
-        if (currentWave.noOfEnemies <= 0)
-        {
-            canSpawn = false;
-        }
+        if (currentWave.noOfEnemies <= 0) canSpawn = false;
     }
 }

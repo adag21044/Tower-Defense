@@ -4,6 +4,11 @@ public class EnemyHealthController : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 30;
     private float currentHealth;
+    
+    
+    private void OnEnable() { currentHealth = maxHealth; }  // reset on spawn from pool
+    public void SetMaxHealth(int value) { maxHealth = value; currentHealth = maxHealth; }
+
 
     private void Awake()
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName= "EnemyData", menuName = "Data/Enemy Definition")]
+[CreateAssetMenu(fileName = "EnemyData", menuName = "Data/Enemy Definition")]
 public class EnemyData : ScriptableObject
 {
     public GameObject prefab;
@@ -8,4 +8,7 @@ public class EnemyData : ScriptableObject
     public Color color = Color.white;
     public int maxHealth = 100;
     public int damage = 10;
+    
+    [Header("Path")]
+    public PathData pathData; 
 }

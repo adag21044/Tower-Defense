@@ -17,3 +17,4 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   maxHealth: 100
   damage: 10
+  pathData: {fileID: 11400000, guid: 75b845f39d41ccd4c8c23fc4005aecdb, type: 2}
