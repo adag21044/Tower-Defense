@@ -88,7 +88,7 @@ public class WaveSpawner : MonoBehaviour
 
     private WaveDefinition GetWaveDefinitionForIndex(int idx)
     {
-        if (waves == null || waves.Length == 0) return new WaveDefinition { name = $"Wave {idx+1}", entries = new WaveEntry[0] };
+        if (waves == null || waves.Length == 0) return new WaveDefinition { name = $"Wave {idx + 1}", entries = new WaveEntry[0] };
         if (idx < waves.Length) return waves[idx];
         // Past last wave
         return loopLastWave ? waves[waves.Length - 1] : waves[waves.Length - 1];
@@ -111,7 +111,7 @@ public class WaveSpawner : MonoBehaviour
         // Boss check (5/10/15…)
         if (bossEnemy != null && bossEveryN > 0 && ((currentWaveNumber + 1) % bossEveryN == 0))
         {
-            SpawnOne(bossEnemy, currentWaveNumber, isBoss:true);
+            SpawnOne(bossEnemy, currentWaveNumber, isBoss: true);
         }
 
         // Optionally wait until all enemies are cleared (death or reached end)
@@ -213,6 +213,17 @@ public class WaveSpawner : MonoBehaviour
         if (!waveLabel) return;
         waveLabel.text = $"Wave {waveIndex + 1}";
     }
+    
+    public void CallNextWaveEarly()
+    {
+        Debug.Log("Next wave called early.");
+        waveLabel.text = $"Wave {waveIndex + 1}";
+        if (counting) // zaten countdown bekliyorsa
+        {
+            countdown = 0f; // hemen başlat
+        }
+    }
+
 }
 
 /// Tracks how many enemies are currently alive/active (works with pooling)
