@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Enemy2
   m_EditorClassIdentifier: 
   prefab: {fileID: 536496045556235249, guid: 6a9ab230e8a6c044a83abdfc985830aa, type: 3}
-  moveSpeed: 2
+  moveSpeed: 4
   color: {r: 1, g: 0, b: 0, a: 1}
   maxHealth: 100
   damage: 10
+  pathData: {fileID: 11400000, guid: 75b845f39d41ccd4c8c23fc4005aecdb, type: 2}
