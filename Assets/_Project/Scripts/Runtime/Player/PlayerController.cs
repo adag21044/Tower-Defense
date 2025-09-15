@@ -5,8 +5,8 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private PlayerHealthController healthController;
-        [SerializeField] private IFrameController iFrameController;
+    public PlayerHealthController healthController;
+    [SerializeField] private IFrameController iFrameController;
 
 
     private void Update()
