@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 30
+  hitEffectPrefab: {fileID: 0}
 --- !u!114 &48411872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3117,6 +3118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 30
+  hitEffectPrefab: {fileID: 0}
 --- !u!114 &1200211539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3534,7 +3536,7 @@ Transform:
   m_GameObject: {fileID: 1456743642}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: -4}
+  m_LocalPosition: {x: 11.4, y: -2, z: 15.9}
   m_LocalScale: {x: 0.19, y: 0.19, z: 0.19}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -4266,6 +4268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 30
+  hitEffectPrefab: {fileID: 0}
 --- !u!114 &1836526352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4773,6 +4776,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 357323195206776195, guid: 6a9ab230e8a6c044a83abdfc985830aa, type: 3}
+      propertyPath: hitEffect
+      value: 
+      objectReference: {fileID: 7331220703910095153, guid: 12aba86fbcb9565479bc8d1b552e00c6, type: 3}
+    - target: {fileID: 357323195206776195, guid: 6a9ab230e8a6c044a83abdfc985830aa, type: 3}
+      propertyPath: hitEffectPrefab
+      value: 
+      objectReference: {fileID: 3451565912381663660, guid: 12aba86fbcb9565479bc8d1b552e00c6, type: 3}
     - target: {fileID: 536496045556235249, guid: 6a9ab230e8a6c044a83abdfc985830aa, type: 3}
       propertyPath: m_Name
       value: Enemy2-Sprites to billboard
@@ -4934,6 +4945,14 @@ PrefabInstance:
       propertyPath: 'waypoints.Array.data[7]'
       value: 
       objectReference: {fileID: 1716720809}
+    - target: {fileID: 7237006887303530821, guid: 5b64a75bf209f9e4ebcdb58a9b75b188, type: 3}
+      propertyPath: hitEffect
+      value: 
+      objectReference: {fileID: 7331220703910095153, guid: 12aba86fbcb9565479bc8d1b552e00c6, type: 3}
+    - target: {fileID: 7237006887303530821, guid: 5b64a75bf209f9e4ebcdb58a9b75b188, type: 3}
+      propertyPath: hitEffectPrefab
+      value: 
+      objectReference: {fileID: 3451565912381663660, guid: 12aba86fbcb9565479bc8d1b552e00c6, type: 3}
     - target: {fileID: 7954954704475819259, guid: 5b64a75bf209f9e4ebcdb58a9b75b188, type: 3}
       propertyPath: m_Name
       value: Enemy-Sprites to billboard

@@ -9,6 +9,8 @@ public class EnemyHealthController : MonoBehaviour
     private void OnEnable() { currentHealth = maxHealth; }  // reset on spawn from pool
     public void SetMaxHealth(int value) { maxHealth = value; currentHealth = maxHealth; }
 
+    [SerializeField] private GameObject hitEffectPrefab;
+
 
     private void Awake()
     {
@@ -27,10 +29,23 @@ public class EnemyHealthController : MonoBehaviour
 
     private void Die()
     {
-        
-        if (PoolManager.Instance != null)
-            PoolManager.Instance.Despawn(gameObject);
-        else
-            Destroy(gameObject);
+        PoolManager.Instance.Despawn(gameObject);
+
+        if (hitEffectPrefab != null)
+        {
+            var effectObj = PoolManager.Instance.Spawn(
+                hitEffectPrefab, 
+                transform.position, 
+                Quaternion.identity
+            );
+
+            // particle componentini bul ve çalıştır
+            var ps = effectObj.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                ps.Play();
+                Debug.Log("Particle played");
+            }
+        }
     }
 }

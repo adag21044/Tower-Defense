@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 30
+  hitEffectPrefab: {fileID: 3451565912381663660, guid: 12aba86fbcb9565479bc8d1b552e00c6, type: 3}
 --- !u!114 &4653955624559771415
 MonoBehaviour:
   m_ObjectHideFlags: 0
