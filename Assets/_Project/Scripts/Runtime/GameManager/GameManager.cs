@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BaseHealthController baseHealthController;
     [SerializeField] private GameObject retryPanel;
 
-    [System.Obsolete]
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -23,11 +23,11 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    [System.Obsolete]
+    
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        playerController = FindObjectOfType<PlayerController>();
-        baseHealthController = FindObjectOfType<BaseHealthController>();
+        playerController = FindAnyObjectByType<PlayerController>();
+        baseHealthController = FindAnyObjectByType<BaseHealthController>();
 
         if (playerController != null)
             playerController.healthController.OnDeath += RetryPanel;
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
             baseHealthController.OnBaseDestroyed += RetryPanel;
     }
 
-    [System.Obsolete]
+    
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
