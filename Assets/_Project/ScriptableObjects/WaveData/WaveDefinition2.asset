@@ -18,4 +18,4 @@ MonoBehaviour:
     count: 3
     rate: 3
   waitForClear: 0
-  extraDelayAfter: 0
+  extraDelayAfter: 5
