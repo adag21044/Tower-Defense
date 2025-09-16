@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     
 
     public static event Action OnStart;
+    public static event Action OnRetry;
 
 
     private void Awake()
@@ -32,8 +33,8 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         if (mainMenuPanel != null) mainMenuPanel.SetActive(true);
-        
-        pauseManager.InitalPauseGame(); 
+
+        pauseManager.InitalPauseGame();
     }
 
 
@@ -68,6 +69,17 @@ public class GameManager : MonoBehaviour
     public void Retry()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        ResetGame();
+        OnRetry?.Invoke();
+        Debug.Log("Retrying...");
+    }
+
+    public void ResetGame()
+    {
+        scoreManager.ResetScore();
+        pauseManager.ResumeGame();
+        retryPanel.SetActive(false);
     }
 
     public void RetryPanel()

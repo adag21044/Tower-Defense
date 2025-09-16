@@ -4174,12 +4174,12 @@ RectTransform:
   m_Children:
   - {fileID: 1340896428}
   - {fileID: 1267347906}
-  - {fileID: 544405583}
   - {fileID: 637151757}
   - {fileID: 1896840668}
-  - {fileID: 82730786}
   - {fileID: 451826110}
   - {fileID: 905993514}
+  - {fileID: 544405583}
+  - {fileID: 82730786}
   - {fileID: 609948622}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
