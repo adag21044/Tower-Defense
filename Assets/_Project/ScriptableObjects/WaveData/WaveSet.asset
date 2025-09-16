@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec34a03e0f011104cb1539ba1bdbe172, type: 3}
+  m_Name: WaveSet
+  m_EditorClassIdentifier: 
+  waves:
+  - {fileID: 11400000, guid: 4c029d396b84e4445b64b215a928ea5d, type: 2}
+  - {fileID: 11400000, guid: 775ab73b5a5afae448c4c90314405508, type: 2}
+  - {fileID: 11400000, guid: db6f7bdff83636d46985a9af4cef77b7, type: 2}

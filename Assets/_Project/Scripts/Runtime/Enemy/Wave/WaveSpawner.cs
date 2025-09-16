@@ -2,58 +2,34 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-/// Drop-in wave system tailored to your project.
-/// - Uses EnemyData + PathData for path-following enemies
-/// - Spawns via PoolManager (no GC thrash)
-/// - Early-call next wave with a key
-/// - Boss every N waves (5/10/15…)
-/// - Optional "wait for clear" before next wave
 public class WaveSpawner : MonoBehaviour
 {
-    [System.Serializable]
-    public class WaveEntry
-    {
-        public EnemyData enemy;     // ScriptableObject
-        [Min(1)] public int count = 5;
-        [Min(0.1f)] public float rate = 1f; // enemies per second
-    }
-
-    [System.Serializable]
-    public class WaveDefinition
-    {
-        public string name;
-        public WaveEntry[] entries;
-        public bool waitForClear = false;         // wait all enemies to die/reach end?
-        [Min(0f)] public float extraDelayAfter = 0f; // extra delay before countdown
-    }
-
-    [Header("Waves")]
-    [SerializeField] private WaveDefinition[] waves;
-    [SerializeField] private bool loopLastWave = false; // optional endless mode
+    [Header("Wave Set (ScriptableObject)")]
+    [SerializeField] private WaveSet waveSet;          // Use the external SO types
+    [SerializeField] private bool loopLastWave = false;
 
     [Header("Timing")]
     [SerializeField] private float timeBetweenWaves = 4f;
     [SerializeField] private KeyCode earlyCallKey = KeyCode.Space;
 
     [Header("Boss")]
-    [SerializeField] private EnemyData bossEnemy;  // optional boss type
-    [SerializeField] private int bossEveryN = 5;   // 5,10,15...
+    [SerializeField] private EnemyData bossEnemy;      // Optional boss type (SO)
+    [SerializeField] private int bossEveryN = 5;       // 5,10,15...
 
-    [Header("Difficulty Scaling / waveIndex >= 1")]
+    [Header("Scaling per wave (>=1)")]
     [Tooltip("Extra HP per wave as a fraction (0.15 => +15% per wave)")]
     [SerializeField] private float hpMultiplierPerWave = 0.15f;
     [Tooltip("Extra speed per wave as a fraction (0.05 => +5% per wave)")]
     [SerializeField] private float speedMultiplierPerWave = 0.05f;
 
     [Header("Spawn")]
-    [SerializeField] private Transform[] spawnPoints; // optional: if empty, uses pathData first point
-    [SerializeField] private LayerMask enemyLayerForTag; // optional, for sanity checks
+    [SerializeField] private Transform[] spawnPoints;  // If empty, uses first PathData point
 
     [Header("UI (optional)")]
     [SerializeField] private TextMeshProUGUI waveLabel;
-    [SerializeField] private TextMeshProUGUI statusLabel; // currentWave + remainingEnemies
+    [SerializeField] private TextMeshProUGUI statusLabel; // countdown / enemies left
 
-    private int waveIndex = 0;
+    private int waveIndex;
     private float countdown;
     private bool counting = true;
     private Coroutine activeRoutine;
@@ -61,19 +37,23 @@ public class WaveSpawner : MonoBehaviour
     private void Awake()
     {
         EnemyCounter.Reset();
+        waveIndex = 0;
         countdown = timeBetweenWaves;
         UpdateWaveLabel();
+        UpdateStatusLabel(force: true);
     }
 
     private void Update()
     {
-        // Early call: only when counting between waves
+        // Early-call via key while counting
         if (counting && Input.GetKeyDown(earlyCallKey))
-        {
-            countdown = 0f; // trigger next wave immediately
-        }
+            CallNextWaveEarly();
 
-        if (!counting) return;
+        if (!counting)
+        {
+            UpdateStatusLabel(); // show remaining enemies
+            return;
+        }
 
         countdown -= Time.deltaTime;
         if (countdown <= 0f)
@@ -85,81 +65,89 @@ public class WaveSpawner : MonoBehaviour
                 activeRoutine = StartCoroutine(SpawnWaveRoutine(def, waveIndex));
             }
         }
+
         UpdateStatusLabel();
-    }
-
-    private void UpdateStatusLabel()
-    {
-        if (!statusLabel) return;
-
-        int currentWave = waveIndex + 1;
-        int remaining = EnemyCounter.ActiveCount;
-
-        statusLabel.text = $"Wave: {currentWave}\nEnemies: {remaining}";
     }
 
     private WaveDefinition GetWaveDefinitionForIndex(int idx)
     {
-        if (waves == null || waves.Length == 0) return new WaveDefinition { name = $"Wave {idx + 1}", entries = new WaveEntry[0] };
-        if (idx < waves.Length) return waves[idx];
-        // Past last wave
-        return loopLastWave ? waves[waves.Length - 1] : waves[waves.Length - 1];
+        if (waveSet == null || waveSet.waves == null || waveSet.waves.Length == 0)
+            return null;
+
+        if (idx < waveSet.waves.Length) return waveSet.waves[idx];
+        return loopLastWave ? waveSet.waves[waveSet.waves.Length - 1] : null;
     }
 
     private IEnumerator SpawnWaveRoutine(WaveDefinition def, int currentWaveNumber)
     {
-        // Spawn each entry batch
-        foreach (var entry in def.entries)
+        if (def == null)
         {
-            if (entry == null || entry.enemy == null) continue;
+            Debug.LogWarning("[WaveSpawner] WaveDefinition is null or finished.");
+            yield break;
+        }
 
-            for (int i = 0; i < entry.count; i++)
+        // Announce wave
+        if (waveLabel) waveLabel.text = $"{def.waveName} ({currentWaveNumber + 1})";
+
+        // Spawn all entries of this wave
+        if (def.entries != null)
+        {
+            foreach (var entry in def.entries)
             {
-                SpawnOne(entry.enemy, currentWaveNumber);
-                yield return new WaitForSeconds(1f / Mathf.Max(0.01f, entry.rate));
+                if (entry == null || entry.enemy == null) continue;
+
+                int spawnCount = Mathf.Max(0, entry.count);
+                float spawnRate = Mathf.Max(0.01f, entry.rate);
+
+                for (int i = 0; i < spawnCount; i++)
+                {
+                    SpawnOne(entry.enemy, currentWaveNumber, isBoss: false);
+                    yield return new WaitForSeconds(1f / spawnRate);
+                }
             }
         }
 
         // Boss check (5/10/15…)
         if (bossEnemy != null && bossEveryN > 0 && ((currentWaveNumber + 1) % bossEveryN == 0))
-        {
             SpawnOne(bossEnemy, currentWaveNumber, isBoss: true);
-        }
 
-        // Optionally wait until all enemies are cleared (death or reached end)
+        // Optional: wait for clear
         if (def.waitForClear)
         {
             while (EnemyCounter.ActiveCount > 0)
                 yield return null;
         }
 
-        // Extra delay & return to counting
+        // Extra delay after wave
         if (def.extraDelayAfter > 0f)
             yield return new WaitForSeconds(def.extraDelayAfter);
 
+        // Prepare next
         activeRoutine = null;
-
-        // Prepare next wave
         waveIndex++;
-        UpdateWaveLabel();
 
-        // If not looping and past last wave, stop counting
-        if (!loopLastWave && waveIndex >= waves.Length)
+        if (!loopLastWave && waveSet != null && waveIndex >= waveSet.waves.Length)
+        {
+            if (waveLabel) waveLabel.text = "All Waves Completed";
+            if (statusLabel) statusLabel.text = "Enemies: 0";
             yield break;
+        }
 
         countdown = timeBetweenWaves;
         counting = true;
+        UpdateWaveLabel();
+        UpdateStatusLabel(force: true);
     }
 
-    private void SpawnOne(EnemyData data, int currentWaveNumber, bool isBoss = false)
+    private void SpawnOne(EnemyData data, int currentWaveNumber, bool isBoss)
     {
         if (data == null || data.prefab == null)
         {
-            Debug.LogError("[WaveDirector] EnemyData or prefab missing.");
+            Debug.LogError("[WaveSpawner] EnemyData or prefab missing.");
             return;
         }
 
-        // Determine spawn position
+        // Decide spawn transform
         Vector3 spawnPos = Vector3.zero;
         Quaternion spawnRot = Quaternion.identity;
 
@@ -171,74 +159,79 @@ public class WaveSpawner : MonoBehaviour
         }
         else if (data.pathData != null && data.pathData.waypoints != null && data.pathData.waypoints.Length > 0)
         {
-            spawnPos = data.pathData.waypoints[0]; // spawn at first path point
+            // Spawn at first path point from PathData (SO)
+            spawnPos = data.pathData.waypoints[0];
         }
 
-        // Spawn via pool
+        // Spawn via pool (fallback to Instantiate)
         GameObject go = (PoolManager.Instance != null)
             ? PoolManager.Instance.Spawn(data.prefab, spawnPos, spawnRot, null)
             : Instantiate(data.prefab, spawnPos, spawnRot);
 
-        // Ensure tag for targeting
+        // Ensure tag for targeting systems
         go.tag = "Enemy";
 
-        // Track lifetime count
+        // Track active enemies even with pooling
         if (!go.TryGetComponent<EnemyCounter>(out _))
             go.AddComponent<EnemyCounter>();
 
-        // Apply base EnemyData
+        // Apply base stats/path through your EnemyController if available
         if (go.TryGetComponent<EnemyController>(out var ctrl))
         {
+            // Expected: ctrl.Apply(...) sets health, speed and injects PathData to mover
             ctrl.Apply(data);
         }
-        else
-        {
-            Debug.LogWarning("[WaveDirector] Spawned object has no EnemyController.");
-        }
 
-        // Difficulty scaling (per wave)
+        // Per-wave scaling (and boss bump)
         float hpScale = 1f + Mathf.Max(0f, hpMultiplierPerWave) * currentWaveNumber;
         float spdScale = 1f + Mathf.Max(0f, speedMultiplierPerWave) * currentWaveNumber;
+        if (isBoss) { hpScale *= 3f; spdScale *= 1.2f; }
 
-        // Boss bump
-        if (isBoss)
-        {
-            hpScale *= 3f;
-            spdScale *= 1.2f;
-        }
-
-        // Apply scaled stats directly on components
         if (go.TryGetComponent<EnemyHealthController>(out var eh))
         {
             int scaledMax = Mathf.RoundToInt(Mathf.Max(1f, data.maxHealth) * hpScale);
             eh.SetMaxHealth(scaledMax);
         }
+
         if (go.TryGetComponent<EnemyMover>(out var mover))
         {
             mover.MoveSpeed = Mathf.Max(0.01f, data.moveSpeed) * spdScale;
-            // path injected already by EnemyController.Apply(data) -> EnemyMover.SetWaypoints
+
+            // If your EnemyController didn't inject the path and your mover supports Vector3[]:
+            var setWaypoints = mover.GetType().GetMethod("SetWaypoints", new[] { typeof(Vector3[]) });
+            if (setWaypoints != null && data.pathData != null)
+                setWaypoints.Invoke(mover, new object[] { data.pathData.waypoints });
         }
     }
 
     private void UpdateWaveLabel()
     {
         if (!waveLabel) return;
-        waveLabel.text = $"Wave {waveIndex + 1}";
+        int total = (waveSet && waveSet.waves != null) ? waveSet.waves.Length : 0;
+        waveLabel.text = $"Wave {Mathf.Clamp(waveIndex + 1, 1, Mathf.Max(1, total))}";
     }
-    
+
+    /// Public API to call next wave early (bind to UI Button)
     public void CallNextWaveEarly()
     {
-        Debug.Log("Next wave called early.");
-        waveLabel.text = $"Wave {waveIndex + 1}";
-        if (counting) // zaten countdown bekliyorsa
-        {
-            countdown = 0f; // hemen başlat
-        }
+        if (!counting) return;
+        countdown = 0f;
+        UpdateStatusLabel(force: true); // reflect the skip immediately
+        Debug.Log("[WaveSpawner] Next wave called early.");
     }
 
+    private void UpdateStatusLabel(bool force = false)
+    {
+        if (!statusLabel) return;
+
+        if (counting || force)
+            statusLabel.text = $"Wave: {waveIndex + 1}\nCountdown: {Mathf.Max(0f, countdown):0.0}s";
+        else
+            statusLabel.text = $"Wave: {waveIndex + 1}\nEnemies: {EnemyCounter.ActiveCount}";
+    }
 }
 
-/// Tracks how many enemies are currently alive/active (works with pooling)
+/// Pool-friendly alive counter
 public class EnemyCounter : MonoBehaviour
 {
     public static int ActiveCount { get; private set; }

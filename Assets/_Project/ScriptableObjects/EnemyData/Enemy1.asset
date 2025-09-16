@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1385445843f81da4ca720979c06e5eb6, type: 3}
   m_Name: Enemy1
   m_EditorClassIdentifier: 
+  enemyName: Enemy1
   prefab: {fileID: 7954954704475819259, guid: 5b64a75bf209f9e4ebcdb58a9b75b188, type: 3}
   moveSpeed: 2
   color: {r: 1, g: 1, b: 1, a: 1}
