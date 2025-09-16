@@ -51,6 +51,7 @@ public class WaveSpawner : MonoBehaviour
 
     [Header("UI (optional)")]
     [SerializeField] private TextMeshProUGUI waveLabel;
+    [SerializeField] private TextMeshProUGUI statusLabel; // currentWave + remainingEnemies
 
     private int waveIndex = 0;
     private float countdown;
@@ -84,6 +85,17 @@ public class WaveSpawner : MonoBehaviour
                 activeRoutine = StartCoroutine(SpawnWaveRoutine(def, waveIndex));
             }
         }
+        UpdateStatusLabel();
+    }
+
+    private void UpdateStatusLabel()
+    {
+        if (!statusLabel) return;
+
+        int currentWave = waveIndex + 1;
+        int remaining = EnemyCounter.ActiveCount;
+
+        statusLabel.text = $"Wave: {currentWave}\nEnemies: {remaining}";
     }
 
     private WaveDefinition GetWaveDefinitionForIndex(int idx)
