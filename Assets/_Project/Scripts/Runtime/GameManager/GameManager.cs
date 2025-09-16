@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerController playerController;
     [SerializeField] private BaseHealthController baseHealthController;
     [SerializeField] private GameObject retryPanel;
+    [SerializeField] private PauseManager pauseManager;
 
     
     private void Awake()
@@ -23,6 +24,15 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    private void Update()
+    {
+        // pause toggle
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (pauseManager != null)
+                pauseManager.TogglePause();
+        }
+    }
     
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
