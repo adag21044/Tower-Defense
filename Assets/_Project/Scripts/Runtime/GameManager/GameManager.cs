@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BaseHealthController baseHealthController;
     [SerializeField] private GameObject retryPanel;
     [SerializeField] private PauseManager pauseManager;
+    [SerializeField] private ScoreManager scoreManager;
 
     
     private void Awake()
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
                 pauseManager.TogglePause();
         }
     }
-    
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         playerController = FindAnyObjectByType<PlayerController>();

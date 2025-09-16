@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyHealthController : MonoBehaviour
@@ -11,6 +12,7 @@ public class EnemyHealthController : MonoBehaviour
 
     [SerializeField] private GameObject hitEffectPrefab;
 
+    public static event Action OnEnemyDeath; // global event for score, currency, etc.
 
     private void Awake()
     {
@@ -38,14 +40,10 @@ public class EnemyHealthController : MonoBehaviour
                 transform.position, 
                 Quaternion.identity
             );
-
-            // particle componentini bul ve çalıştır
             var ps = effectObj.GetComponent<ParticleSystem>();
-            if (ps != null)
-            {
-                ps.Play();
-                Debug.Log("Particle played");
-            }
+            if (ps != null) ps.Play();
         }
+
+        OnEnemyDeath?.Invoke(); // her durumda tetiklensin
     }
 }
