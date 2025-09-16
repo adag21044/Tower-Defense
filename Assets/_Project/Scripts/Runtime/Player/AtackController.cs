@@ -28,6 +28,9 @@ public class AtackController : MonoBehaviour
 
     [SerializeField] private WeaponConfig weaponConfig;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+
     private void Awake()
     {
         if (muzzle == null) muzzle = transform;
@@ -35,7 +38,7 @@ public class AtackController : MonoBehaviour
         range = weaponConfig.range;
         fireRate = weaponConfig.fireRate;
         damagePerShot = weaponConfig.damage;
-        
+
     }
 
     private void Update()
@@ -102,6 +105,8 @@ public class AtackController : MonoBehaviour
         GameObject laser = PoolManager.Instance != null
             ? PoolManager.Instance.Spawn(laserPrefab, muzzle.position, Quaternion.LookRotation(dir))
             : Instantiate(laserPrefab, muzzle.position, Quaternion.LookRotation(dir));
+
+        audioSource?.Play();
 
         if (laser.TryGetComponent<LaserProjectile>(out var proj))
         {
