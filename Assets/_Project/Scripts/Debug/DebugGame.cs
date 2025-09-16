@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class DebugGame : MonoBehaviour
 {
+    [System.Obsolete]
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1)) ShowWaypointsandGizmos();
@@ -10,6 +11,7 @@ public class DebugGame : MonoBehaviour
     }
 
     // Waypoint ve path çizimlerini görmek
+    [System.Obsolete]
     private void ShowWaypointsandGizmos()
     {
         // Sahnedeki tüm EnemyMover’ları bul
@@ -34,6 +36,7 @@ public class DebugGame : MonoBehaviour
     }
 
     // Tüm düşmanları anında yok etmek
+    [System.Obsolete]
     private void NukeAllEnemies()
     {
         var enemies = FindObjectsOfType<EnemyController>();
@@ -47,6 +50,7 @@ public class DebugGame : MonoBehaviour
     }
 
     // Spawn noktalarını göstermek
+    [System.Obsolete]
     private void ShowSpawnPoints()
     {
         var spawners = FindObjectsOfType<WaveSpawner>();
