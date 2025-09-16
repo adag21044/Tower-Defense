@@ -39,9 +39,8 @@ public class PlayerController : MonoBehaviour
     private void HandlePlayerDeath()
     {
         Debug.Log("Player has died!");
-        // Disable movement, play anim etc.
-
-        Respawn();
+        GameManager.Instance.RetryPanel(); // paneli aç
+        // Respawn() çağrısını kaldır
     }
 
     private void HandleHealthChanged(int currentHealth)

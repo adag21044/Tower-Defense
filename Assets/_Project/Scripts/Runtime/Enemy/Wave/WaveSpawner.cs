@@ -36,7 +36,7 @@ public class WaveSpawner : MonoBehaviour
 
     private void Awake()
     {
-        EnemyCounter.Reset();
+        
         waveIndex = 0;
         countdown = timeBetweenWaves;
         UpdateWaveLabel();
@@ -67,6 +67,26 @@ public class WaveSpawner : MonoBehaviour
         }
 
         UpdateStatusLabel();
+    }
+
+    private void OnEnable()
+    {
+        GameManager.OnRetry += HandleRetry;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnRetry -= HandleRetry;
+    }
+
+    private void HandleRetry()
+    {
+        EnemyCounter.Reset();
+        waveIndex = 0;
+        countdown = timeBetweenWaves;
+        counting = true;
+        UpdateWaveLabel();
+        UpdateStatusLabel(force: true);
     }
 
     private WaveDefinition GetWaveDefinitionForIndex(int idx)
@@ -231,11 +251,4 @@ public class WaveSpawner : MonoBehaviour
     }
 }
 
-/// Pool-friendly alive counter
-public class EnemyCounter : MonoBehaviour
-{
-    public static int ActiveCount { get; private set; }
-    private void OnEnable() { ActiveCount++; }
-    private void OnDisable() { if (ActiveCount > 0) ActiveCount--; }
-    public static void Reset() { ActiveCount = 0; }
-}
+

@@ -68,19 +68,34 @@ public class GameManager : MonoBehaviour
 
     public void Retry()
     {
+        // Sayacı sıfırla
+        EnemyCounter.Reset();
+
+        // Sahneyi yeniden yükle
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
+        // Reset Game State
         ResetGame();
         OnRetry?.Invoke();
         Debug.Log("Retrying...");
     }
 
+
     public void ResetGame()
     {
         scoreManager.ResetScore();
         pauseManager.ResumeGame();
-        retryPanel.SetActive(false);
+        if (retryPanel != null) retryPanel.SetActive(false);
+
+        // Player ve Base referanslarını yeniden bul
+        playerController = FindAnyObjectByType<PlayerController>();
+        baseHealthController = FindAnyObjectByType<BaseHealthController>();
+
+        // Dalga sistemi için sayaç sıfırlansın
+        var waveSpawner = FindAnyObjectByType<WaveSpawner>();
+        if (waveSpawner != null) EnemyCounter.Reset();
     }
+
 
     public void RetryPanel()
     {
