@@ -36,10 +36,10 @@ public class WaveSpawner : MonoBehaviour
 
     [SerializeField] private AudioClip waveStartSound;
     [SerializeField] private AudioSource audioSource;
+    private float? nextCountdownOverride = null;
 
     private void Awake()
     {
-
         waveIndex = 0;
         countdown = timeBetweenWaves;
         UpdateWaveLabel();
@@ -104,7 +104,7 @@ public class WaveSpawner : MonoBehaviour
     private IEnumerator SpawnWaveRoutine(WaveDefinition def, int currentWaveNumber)
     {
         audioSource.PlayOneShot(waveStartSound);
-        
+
         if (def == null)
         {
             Debug.LogWarning("[WaveSpawner] WaveDefinition is null or finished.");
@@ -158,7 +158,9 @@ public class WaveSpawner : MonoBehaviour
             yield break;
         }
 
-        countdown = timeBetweenWaves;
+        countdown = nextCountdownOverride.HasValue ? nextCountdownOverride.Value : timeBetweenWaves;
+        nextCountdownOverride = null;
+
         counting = true;
         UpdateWaveLabel();
         UpdateStatusLabel(force: true);
@@ -237,13 +239,28 @@ public class WaveSpawner : MonoBehaviour
     }
 
     /// Public API to call next wave early (bind to UI Button)
-    public void CallNextWaveEarly()
+   public void CallNextWaveEarly()
+    {
+        // Countdown sürüyorsa anında başlat
+        if (counting)
+        {
+            StartNextWaveNow();
+            return;
+        }
+
+        // Dalga aktifken basılırsa: bitince bekleme olmasın
+        nextCountdownOverride = 0f;
+        Debug.Log("[WaveSpawner] Next wave queued (no countdown).");
+        if (ToastManager.Instance) ToastManager.Instance.ShowToast("Next wave queued!");
+    }
+
+    private void StartNextWaveNow()
     {
         if (!counting) return;
         countdown = 0f;
-        UpdateStatusLabel(force: true); // reflect the skip immediately
+        UpdateStatusLabel(force: true);
         Debug.Log("[WaveSpawner] Next wave called early.");
-        ToastManager.Instance.ShowToast("Next wave incoming!");
+        if (ToastManager.Instance) ToastManager.Instance.ShowToast("Next wave incoming!");
     }
 
     private void UpdateStatusLabel(bool force = false)
@@ -251,14 +268,19 @@ public class WaveSpawner : MonoBehaviour
         if (!statusLabel) return;
 
         if (counting || force)
+        {
             statusLabel.text = $"Wave: {waveIndex + 1}\nCountdown: {Mathf.Max(0f, countdown):0.0}s";
-        if ((waveIndex + 1) % 5 == 0)
+            return;
+        }
+
+        statusLabel.text = $"Wave: {waveIndex + 1}\nEnemies: {EnemyCounter.ActiveCount}";
+
+        // Boss uyarısını mantıksal olarak burada, güvenli şekilde verin
+        if (bossEnemy != null && bossEveryN > 0 && ((waveIndex + 1) % bossEveryN == 0))
         {
             Debug.Log("Boss wave incoming!");
-            ToastManager.Instance.ShowToast("Boss wave incoming!");   
+            if (ToastManager.Instance) ToastManager.Instance.ShowToast("Boss wave incoming!");
         }
-        else
-            statusLabel.text = $"Wave: {waveIndex + 1}\nEnemies: {EnemyCounter.ActiveCount}";
     }
 }
 
