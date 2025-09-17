@@ -19,6 +19,11 @@ public class EnemyHealthController : MonoBehaviour
         currentHealth = maxHealth;
     }
 
+    private void Start()
+    {
+        PoolManager.Instance.Prewarm(hitEffectPrefab, 20);
+    }
+
     public void TakeDamage(float amount)
     {
         currentHealth -= amount;

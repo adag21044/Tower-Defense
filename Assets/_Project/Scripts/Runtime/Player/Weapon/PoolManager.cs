@@ -5,6 +5,16 @@ public class PoolManager : MonoBehaviour
 {
     public static PoolManager Instance { get; private set; }
 
+    [System.Serializable]
+    public class PoolConfig
+    {
+        public GameObject prefab;
+        public int initialSize = 10;
+    }
+    
+    [Header("Pools (set in Inspector)")]
+    [SerializeField] private PoolConfig[] poolConfigs;
+
     // Prefab -> Queue of pooled instances
     private readonly Dictionary<GameObject, Queue<GameObject>> pools = new();
 
@@ -13,6 +23,12 @@ public class PoolManager : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        foreach (var config in poolConfigs)
+        {
+            if (config.prefab == null || config.initialSize <= 0) continue;
+            Prewarm(config.prefab, config.initialSize);
+        }
     }
 
     public GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null)
