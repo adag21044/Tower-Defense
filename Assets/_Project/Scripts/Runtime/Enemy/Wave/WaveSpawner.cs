@@ -34,9 +34,12 @@ public class WaveSpawner : MonoBehaviour
     private bool counting = true;
     private Coroutine activeRoutine;
 
+    [SerializeField] private AudioClip waveStartSound;
+    [SerializeField] private AudioSource audioSource;
+
     private void Awake()
     {
-        
+
         waveIndex = 0;
         countdown = timeBetweenWaves;
         UpdateWaveLabel();
@@ -100,6 +103,8 @@ public class WaveSpawner : MonoBehaviour
 
     private IEnumerator SpawnWaveRoutine(WaveDefinition def, int currentWaveNumber)
     {
+        audioSource.PlayOneShot(waveStartSound);
+        
         if (def == null)
         {
             Debug.LogWarning("[WaveSpawner] WaveDefinition is null or finished.");
