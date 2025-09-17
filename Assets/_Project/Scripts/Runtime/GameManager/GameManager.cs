@@ -19,6 +19,16 @@ public class GameManager : MonoBehaviour
     public static event Action OnStart;
     public static event Action OnRetry;
 
+    public enum GameState
+    {
+        MainMenu,
+        Playing,
+        Paused,
+        GameOver
+    }
+
+    [SerializeField] private GameState currentState = GameState.MainMenu;
+
 
     private void Awake()
     {
@@ -44,7 +54,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (pauseManager != null)
+            {
                 pauseManager.TogglePause();
+                currentState = pauseManager.isPaused ? GameState.Paused : GameState.Playing;
+            }
         }
     }
 
@@ -103,12 +116,14 @@ public class GameManager : MonoBehaviour
         Debug.Log("Show Retry Panel");
         ToastManager.Instance.ShowToast("Game Over! Try Again?");
         retryPanel.SetActive(true);
+        currentState = GameState.GameOver;
     }
-    
+
     public void StartGame()
     {
         mainMenuPanel.SetActive(false);
-        pauseManager.ResumeGame(); 
+        pauseManager.ResumeGame();
         OnStart?.Invoke();
+        currentState = GameState.Playing;
     }
 }
