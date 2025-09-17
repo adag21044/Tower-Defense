@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private float rotationX = 0f;
     private float rotationY = 0f;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private ParticleSystem dustEffect;
 
     private void Awake()
     {
@@ -26,6 +27,19 @@ public class PlayerMovement : MonoBehaviour
 
         transform.Translate(moveX, 0, moveZ);
 
+        // Dust effect
+        if (dustEffect != null)
+        {
+            if (moveX != 0 || moveZ != 0)
+            {
+                if (!dustEffect.isPlaying) dustEffect.Play();
+            }
+            else
+            {
+                if (dustEffect.isPlaying) dustEffect.Stop();
+            }
+        }
+        
         // Player rotation
         transform.localRotation = Quaternion.Euler(rotationY, rotationX, 0f);
     }
