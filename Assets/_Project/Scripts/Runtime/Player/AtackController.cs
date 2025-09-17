@@ -27,6 +27,7 @@ public class AtackController : MonoBehaviour
     [SerializeField] private bool enableLaser = true;
 
     [SerializeField] private WeaponConfig weaponConfig;
+    [SerializeField] private WeaponConfig[] weaponTypes;
 
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
@@ -35,22 +36,57 @@ public class AtackController : MonoBehaviour
     {
         if (muzzle == null) muzzle = transform;
 
+        // önce default silahı seç
+        weaponConfig = weaponTypes[0];
+        Debug.Log($"[Attack] Weapon set to {weaponConfig.name}");
+
+        // sonra değerleri atayalım
         range = weaponConfig.range;
         fireRate = weaponConfig.fireRate;
         damagePerShot = weaponConfig.damage;
-
     }
+
 
     private void Update()
     {
+        HandleWeaponHotkeys(); // <- ÖNCE BUNU ÇALIŞTIR
+
         Transform target = FindClosestTarget();
         if (target == null)
         {
-            StopMeleeAnimation(); // hedef yoksa melee animasyonu da dursun
-            return;
+            StopMeleeAnimation();
+            return;              // <- Erken çıkış bundan sonra
         }
 
         TryFireAtTarget(target);
+    }
+
+    private void HandleWeaponHotkeys()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
+            SetWeapon(0);
+        else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
+            SetWeapon(1);
+        else if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
+            SetWeapon(2);
+    }
+
+    private void SetWeapon(int index)
+    {
+        if (index < 0 || index >= weaponTypes.Length) return;
+
+        weaponConfig = weaponTypes[index];
+        ApplyWeaponConfig();
+
+        Debug.Log($"[Attack] Weapon switched to {weaponConfig.name}");
+        ToastManager.Instance.ShowToast($"Weapon switched to {weaponConfig.name}");
+    }
+
+    private void ApplyWeaponConfig()
+    {
+        range        = weaponConfig.range;
+        fireRate     = weaponConfig.fireRate;
+        damagePerShot= weaponConfig.damage;
     }
 
     private Transform FindClosestTarget()
@@ -102,11 +138,13 @@ public class AtackController : MonoBehaviour
 
     private void ShootLaser(Vector3 dir, Transform target)
     {
+        audioSource?.PlayOneShot(audioSource.clip);
+
         GameObject laser = PoolManager.Instance != null
             ? PoolManager.Instance.Spawn(laserPrefab, muzzle.position, Quaternion.LookRotation(dir))
             : Instantiate(laserPrefab, muzzle.position, Quaternion.LookRotation(dir));
 
-        audioSource?.Play();
+        
 
         if (laser.TryGetComponent<LaserProjectile>(out var proj))
         {
