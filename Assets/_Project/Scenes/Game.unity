@@ -2847,7 +2847,7 @@ MonoBehaviour:
   loopLastWave: 0
   timeBetweenWaves: 5
   earlyCallKey: 32
-  bossEnemy: {fileID: 11400000, guid: df8f5f01e4f7b4d4baec74f0710cd642, type: 2}
+  bossEnemy: {fileID: 11400000, guid: 4b028b51bda088f45b8ec7dd4ac145f4, type: 2}
   bossEveryN: 5
   hpMultiplierPerWave: 0.15
   speedMultiplierPerWave: 0.05
@@ -6684,8 +6684,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4777a88cf5f4ea547bbe783c51a3f1fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
-  maxHealth: 200
+  health: 9999999
+  maxHealth: 9999999
   baseHealthBarUI: {fileID: 428534486}
 --- !u!4 &1405317395
 Transform:

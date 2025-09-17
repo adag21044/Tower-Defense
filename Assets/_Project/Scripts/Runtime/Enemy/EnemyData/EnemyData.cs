@@ -3,6 +3,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Data/Enemy Definition")]
 public class EnemyData : ScriptableObject
 {
+    public enum EnemyType
+    {
+        Normal,
+        Boss
+    }
     public string enemyName = "Enemy";
     public GameObject prefab;
     public float moveSpeed = 2f;
@@ -12,4 +17,5 @@ public class EnemyData : ScriptableObject
 
     [Header("Path")]
     public PathData pathData; 
+    public EnemyType enemyType = EnemyType.Normal;
 }

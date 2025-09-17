@@ -247,6 +247,11 @@ public class WaveSpawner : MonoBehaviour
 
         if (counting || force)
             statusLabel.text = $"Wave: {waveIndex + 1}\nCountdown: {Mathf.Max(0f, countdown):0.0}s";
+        if ((waveIndex + 1) % 5 == 0)
+        {
+            Debug.Log("Boss wave incoming!");
+            ToastManager.Instance.ShowToast("Boss wave incoming!");   
+        }
         else
             statusLabel.text = $"Wave: {waveIndex + 1}\nEnemies: {EnemyCounter.ActiveCount}";
     }
