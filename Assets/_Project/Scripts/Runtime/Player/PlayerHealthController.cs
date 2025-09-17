@@ -31,6 +31,7 @@ public class PlayerHealthController : MonoBehaviour
 
     private void Die()
     {
+        ToastManager.Instance.ShowToast("You have died!");
         Debug.Log("Player has died.");
         OnDeath?.Invoke();
     }

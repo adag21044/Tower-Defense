@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
         ResetGame();
         OnRetry?.Invoke();
         Debug.Log("Retrying...");
+        ToastManager.Instance.ShowToast("Game Restarted!");
     }
 
 
@@ -100,6 +101,7 @@ public class GameManager : MonoBehaviour
     public void RetryPanel()
     {
         Debug.Log("Show Retry Panel");
+        ToastManager.Instance.ShowToast("Game Over! Try Again?");
         retryPanel.SetActive(true);
     }
     

@@ -22,6 +22,7 @@ public class LaserProjectile : MonoBehaviour
         Debug.Log($"[Laser] Speed set to {speed}");
         Debug.Log($"[Laser] MaxLife set to {maxLife}");
         Debug.Log($"[Laser] Damage set to {damage}");
+        ToastManager.Instance.ShowToast("Laser setted up!");
     }
 
     private void OnEnable()

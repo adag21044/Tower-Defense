@@ -238,6 +238,7 @@ public class WaveSpawner : MonoBehaviour
         countdown = 0f;
         UpdateStatusLabel(force: true); // reflect the skip immediately
         Debug.Log("[WaveSpawner] Next wave called early.");
+        ToastManager.Instance.ShowToast("Next wave incoming!");
     }
 
     private void UpdateStatusLabel(bool force = false)

@@ -22,6 +22,7 @@ public class ScoreManager : MonoBehaviour
     {
         score += 1;
         Debug.Log("Score: " + score);
+        ToastManager.Instance.ShowToast("Enemy defeated! Score +1");
 
         if (scoreText != null)
             scoreText.text = $"Score: {score}";

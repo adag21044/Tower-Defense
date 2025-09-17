@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ResetPosition()
     {
+        ToastManager.Instance.ShowToast("You have respawned!");
         Debug.Log("Resetting Player Position");
         
         transform.position = new Vector3(0f, -2f, -4f);

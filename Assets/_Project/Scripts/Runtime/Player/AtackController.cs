@@ -146,6 +146,7 @@ public class AtackController : MonoBehaviour
                 health.TakeDamage((int)meleeDamage);
                 any = true;
                 Debug.Log($"[Melee] Overlap hit {c.name} for {meleeDamage}");
+                ToastManager.Instance.ShowToast("Melee hit an enemy!");
             }
         }
 

@@ -24,6 +24,7 @@ public class IFrameController : MonoBehaviour
             playerCollider.enabled = false;
 
         Debug.Log("Collider disabled for I-Frames.");
+        ToastManager.Instance.ShowToast("You are invincible for a short time!");
 
         SetAlpha(0.5f, playerSpriteRenderer); // Yarı saydam yap
         
@@ -35,6 +36,7 @@ public class IFrameController : MonoBehaviour
             playerCollider.enabled = true;
         
         Debug.Log("Collider enabled after I-Frames.");
+        ToastManager.Instance.ShowToast("You are vulnerable again!");
         SetAlpha(1f, playerSpriteRenderer); // Tamamen görünür yap
     }
     

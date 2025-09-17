@@ -23,6 +23,7 @@ public class BaseHealthController : MonoBehaviour
         if (health <= 0)
         {
             Debug.Log("Base destroyed!");
+            ToastManager.Instance.ShowToast("Base destroyed! Game Over.");
             OnBaseDestroyed?.Invoke();
         }
     }
@@ -42,11 +43,13 @@ public class BaseHealthController : MonoBehaviour
     private void LogBaseDestroyed()
     {
         Debug.Log("Base has been destroyed! Game Over.");
+        ToastManager.Instance.ShowToast("Base destroyed! Game Over.");
     }
 
     private void HandleEnemyReachedEnd()
     {
         TakeDamage(50);
         Debug.Log("Base took damage because an enemy reached the end.");
+        ToastManager.Instance.ShowToast("Base took 50 damage!");
     }
 }

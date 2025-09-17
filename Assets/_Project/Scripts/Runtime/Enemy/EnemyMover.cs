@@ -41,6 +41,7 @@ public class EnemyMover : MonoBehaviour
         if (idx >= waypoints.Length - 1)
         {
             Debug.Log("Enemy reached the end of the path.");
+            ToastManager.Instance.ShowToast("An enemy has reached the end!");
             OnEnemyReachedEnd?.Invoke();
             PoolManager.Instance.Despawn(gameObject); // pooling-friendly end
         }
