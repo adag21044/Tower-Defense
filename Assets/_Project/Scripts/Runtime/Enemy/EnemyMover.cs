@@ -97,7 +97,10 @@ public class EnemyMover : MonoBehaviour
     private void OnEnable()
     {
         idx = 0; // reset path index on spawn
-        if (waypoints != null && waypoints.Length > 0)
+        if (waypoints == null || waypoints.Length == 0 || waypoints[0] == null)
+            return;
+
+        else if (waypoints != null && waypoints.Length > 0)
             transform.position = waypoints[0].position; // start at first waypoint
     }
 }
