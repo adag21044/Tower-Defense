@@ -11,7 +11,7 @@ public class EnemyMover : MonoBehaviour
     [Header("Path")]
     [SerializeField] private Transform[] waypoints; // Inspector’dan ayarlanacak
     private int idx = 0;
-    public static event Action OnEnemyReachedEnd;
+    public static event Action<EnemyMover> OnEnemyReachedEnd;
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
 
     private void Start()
@@ -42,7 +42,7 @@ public class EnemyMover : MonoBehaviour
         {
             Debug.Log("Enemy reached the end of the path.");
             ToastManager.Instance.ShowToast("An enemy has reached the end!");
-            OnEnemyReachedEnd?.Invoke();
+            OnEnemyReachedEnd?.Invoke(this);
             PoolManager.Instance.Despawn(gameObject); // pooling-friendly end
         }
     }

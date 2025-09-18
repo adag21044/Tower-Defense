@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private EnemyHealthController enemyHealthController;
-    [SerializeField] private EnemyData enemyData;
+    public EnemyData enemyData;
     [SerializeField] private EnemyMover enemyMover;
     [SerializeField] private SpriteRenderer spriteRenderer;
 

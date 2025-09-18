@@ -46,10 +46,14 @@ public class BaseHealthController : MonoBehaviour
         ToastManager.Instance.ShowToast("Base destroyed! Game Over.");
     }
 
-    private void HandleEnemyReachedEnd()
+    private void HandleEnemyReachedEnd(EnemyMover mover)
     {
-        TakeDamage(50);
-        Debug.Log("Base took damage because an enemy reached the end.");
-        ToastManager.Instance.ShowToast("Base took 50 damage!");
+        var enemy = mover.GetComponent<EnemyController>();
+        if (enemy != null && enemy.enemyData != null)
+        {
+            TakeDamage(enemy.enemyData.damage);
+            Debug.Log($"Base took {enemy.enemyData.damage} damage because {enemy.name} reached the end.");
+            ToastManager.Instance.ShowToast($"Base took {enemy.enemyData.damage} damage!");
+        }
     }
 }

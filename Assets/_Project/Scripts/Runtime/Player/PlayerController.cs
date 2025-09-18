@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Collided with Enemy");
             ToastManager.Instance.ShowToast("Collided with Enemy! Took 10 damage.");
-            healthController.TakeDamage(10);
+            healthController.TakeDamage(other.gameObject.GetComponent<EnemyController>().enemyData.damage);
             iFrameController.EnableIFrames();
         }
     }
