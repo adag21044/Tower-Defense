@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private AudioClip waveStartSound;
     [SerializeField] private AudioSource audioSource;
     private float? nextCountdownOverride = null;
+    public List<GameObject> enemiesInScene = new List<GameObject>();
 
     private void Awake()
     {
@@ -229,6 +231,8 @@ public class WaveSpawner : MonoBehaviour
             if (setWaypoints != null && data.pathData != null)
                 setWaypoints.Invoke(mover, new object[] { data.pathData.waypoints });
         }
+
+        enemiesInScene.Add(go);
     }
 
     private void UpdateWaveLabel()
