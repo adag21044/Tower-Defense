@@ -18,4 +18,7 @@
   - `F3` → Show spawn points.  
   - `Z` → Increase TimeScale (2x).  
   - `-` (Minus) → Decrease TimeScale (0.5x).  
-  - `0` (Alpha0) → Reset TimeScale (1x).  
+  - `0` (Alpha0) → Reset TimeScale (1x).
+ 
+### Limitations
+- All art, audio, and visual assets are **placeholder** for prototyping purposes.  
