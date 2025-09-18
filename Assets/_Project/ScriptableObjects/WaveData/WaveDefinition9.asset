@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64d768c2a6368c4419c76e246a5143e4, type: 3}
-  m_Name: WaveDefinition5
+  m_Name: WaveDefinition9
   m_EditorClassIdentifier: 
   waveName: Wave
   entries:
-  - enemy: {fileID: 11400000, guid: 4b028b51bda088f45b8ec7dd4ac145f4, type: 2}
-    count: 1
-    rate: 1
+  - enemy: {fileID: 11400000, guid: bbebe627c970b8343851b6d70869e2ce, type: 2}
+    count: 4
+    rate: 4
   waitForClear: 0
   extraDelayAfter: 0

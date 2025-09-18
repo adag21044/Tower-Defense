@@ -1,5 +1,5 @@
 using UnityEngine;
-using DG.Tweening; // DOTween eklendi
+using DG.Tweening; // DOTween 
 
 public class AtackController : MonoBehaviour
 {
