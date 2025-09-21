@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a1c18c63ccd14409df7eaec647ec23, type: 3}
+  m_Name: PathData
+  m_EditorClassIdentifier: 
+  waypoints:
+  - {x: 30.88, y: -4.7, z: 54}
+  - {x: 20.88, y: -4.7, z: 54}
+  - {x: 10.88, y: -4.7, z: 54}
