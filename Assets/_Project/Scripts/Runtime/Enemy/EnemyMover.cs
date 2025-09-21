@@ -61,20 +61,29 @@ public class EnemyMover : MonoBehaviour
             }
         }
 
-        // Başlangıç noktası
+        // Her waypoint için küçük bir küre çiz
+        Gizmos.color = Color.yellow;
+        foreach (var wp in waypoints)
+        {
+            if (wp != null)
+                Gizmos.DrawSphere(wp.position, 0.2f);
+        }
+
+        // Başlangıç noktası (Mavi)
         if (waypoints[0] != null)
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawSphere(waypoints[0].position, 0.3f);
         }
 
-        // Bitiş noktası
+        // Bitiş noktası (Kırmızı)
         if (waypoints[waypoints.Length - 1] != null)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawCube(waypoints[waypoints.Length - 1].position, Vector3.one * 0.4f);
         }
     }
+
 
     public void SetWaypoints(Vector3[] points)
     {
@@ -100,4 +109,6 @@ public class EnemyMover : MonoBehaviour
         if (waypoints != null && waypoints.Length > 0)
             transform.position = waypoints[0].position; // start at first waypoint
     }
+
+    
 }
