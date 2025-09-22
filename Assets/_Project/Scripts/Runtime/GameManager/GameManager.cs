@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void ResetGame()
+    private void ResetGame()
     {
         scoreManager.ResetScore();
         pauseManager.ResumeGame();

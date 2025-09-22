@@ -178,7 +178,6 @@ public class AtackController : MonoBehaviour
         if (!any) Debug.Log("[Melee] OverlapSphere hiç hedef bulamadı.");
     }
 
-
     private void StartMeleeAnimation()
     {
         if (meleeObject == null) return;

@@ -31,13 +31,12 @@ public class WaveSpawner : MonoBehaviour
 
     private int waveIndex;
     private float countdown;
-    public bool counting = true;
+    private bool counting = true;
 
     private Coroutine activeRoutine;
 
     private void Awake()
     {
-
         waveIndex = 0;
         countdown = timeBetweenWaves;
         UpdateWaveLabel();

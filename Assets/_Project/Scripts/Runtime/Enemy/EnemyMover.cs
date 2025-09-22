@@ -109,6 +109,4 @@ public class EnemyMover : MonoBehaviour
         if (waypoints != null && waypoints.Length > 0)
             transform.position = waypoints[0].position; // start at first waypoint
     }
-
-    
 }
