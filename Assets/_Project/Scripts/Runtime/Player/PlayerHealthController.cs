@@ -19,7 +19,7 @@ public class PlayerHealthController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (!canTakeDamage) return;
-        
+
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth);
 
@@ -44,5 +44,16 @@ public class PlayerHealthController : MonoBehaviour
         health = maxHealth;
         playerHealthBarUI.UpdateHealthBar(health, maxHealth);
         OnHealthChanged?.Invoke(health);
+    }
+    
+    public void KillPlayer()
+    {
+        if (health > 0)
+        {
+            health = 0;
+            playerHealthBarUI.UpdateHealthBar(health, maxHealth);
+            OnHealthChanged?.Invoke(health);
+            Die();
+        }
     }
 }

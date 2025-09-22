@@ -12,6 +12,11 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         playerMovement.HandleMovement();
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            healthController.KillPlayer();
+        }
     }
 
     private void OnCollisionEnter(Collision other)
