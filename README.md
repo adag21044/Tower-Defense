@@ -1,5 +1,11 @@
 # Tower-Defense
 
+## Assets
+
+- **Player placeholder sprite** ⇒ [OpenGameArt – Gold Frame](https://opengameart.org/content/gold-frame)  
+- **Square sprite** ⇒ [IconsDB – Square Icon](https://www.iconsdb.com/white-icons/square-icon.html)  
+- **Sounds** ⇒ [SFX Engine](https://sfxengine.com/app/songs), [ElevenLabs](https://elevenlabs.io/)  
+
 ## Debug Keys
 
 - **Space** = Early Call (trigger next wave early)  
