@@ -1,7 +1,6 @@
 using UnityEngine;
 using System;
 
-
 public class EnemyMover : MonoBehaviour
 {
     [Header("Move")]
@@ -23,7 +22,6 @@ public class EnemyMover : MonoBehaviour
             transform.position = waypoints[0].position;
         }
     }
-
 
     public void MoveAlongPath()
     {
@@ -80,7 +78,6 @@ public class EnemyMover : MonoBehaviour
         }
     }
 
-
     public void SetWaypoints(Vector3[] points)
     {
         if (points == null || points.Length == 0) return;
@@ -97,7 +94,6 @@ public class EnemyMover : MonoBehaviour
         idx = 0;
         transform.position = waypoints[0].position;
     }
-
 
     private void OnEnable()
     {

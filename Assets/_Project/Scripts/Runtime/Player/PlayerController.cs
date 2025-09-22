@@ -46,8 +46,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player has died!");
         ToastManager.Instance.ShowToast("You have died! Game Over.");
-        GameManager.Instance.RetryPanel(); // paneli aç
-        // Respawn() çağrısını kaldır
+        GameManager.Instance.RetryPanel(); 
     }
 
     private void HandleHealthChanged(int currentHealth)

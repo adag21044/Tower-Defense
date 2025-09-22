@@ -27,10 +27,8 @@ public class PlayerMovement : MonoBehaviour
 
         transform.Translate(moveX, 0, moveZ);
 
-        // Player rotation
         transform.localRotation = Quaternion.Euler(rotationY, rotationX, 0f);
 
-        // Sadece WASD'ye basılırken toz efekti çalışsın
         if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
         {
             if (!dustEffect.isPlaying)

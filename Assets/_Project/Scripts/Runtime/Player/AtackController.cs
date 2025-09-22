@@ -145,7 +145,6 @@ public class AtackController : MonoBehaviour
         }
     }
 
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -162,7 +161,6 @@ public class AtackController : MonoBehaviour
         bool any = false;
         foreach (var c in hits)
         {
-            // İstersen tag kontrolü
             if (!c.CompareTag(targetTag)) continue;
 
             var health = c.GetComponentInParent<EnemyHealthController>() ?? c.GetComponent<EnemyHealthController>();

@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameState currentState = GameState.MainMenu;
 
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -48,7 +47,6 @@ public class GameManager : MonoBehaviour
 
         pauseManager.InitalPauseGame();
     }
-
 
     private void Update()
     {
@@ -75,7 +73,6 @@ public class GameManager : MonoBehaviour
             baseHealthController.OnBaseDestroyed += RetryPanel;
     }
 
-
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -96,7 +93,6 @@ public class GameManager : MonoBehaviour
         ToastManager.Instance.ShowToast("Game Restarted!");
     }
 
-
     private void ResetGame()
     {
         scoreManager.ResetScore();
@@ -111,7 +107,6 @@ public class GameManager : MonoBehaviour
         if (waveSpawner != null) EnemyCounter.Reset();
     }
 
-
     public void RetryPanel()
     {
         Debug.Log("Show Retry Panel");
@@ -124,7 +119,6 @@ public class GameManager : MonoBehaviour
             waveSpawner.enabled = false; 
         }
     }
-
 
     public void StartGame()
     {
