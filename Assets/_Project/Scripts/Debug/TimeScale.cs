@@ -6,7 +6,7 @@ public class TimeScale : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z)) Time.timeScale *= 2f;
         else
-        if (Input.GetKeyDown(KeyCode.Minus)) Time.timeScale *= 0.5f;
+        if (Input.GetKeyDown(KeyCode.KeypadMinus)) Time.timeScale *= 0.5f;
         else
         if (Input.GetKeyDown(KeyCode.Alpha0)) Time.timeScale = 1;
     }
