@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 1994285665815965758}
   - component: {fileID: 7237006887303530821}
   - component: {fileID: 4653955624559771415}
-  - component: {fileID: 3919247897458855520}
   - component: {fileID: -6071480786911197665}
   m_Layer: 0
   m_Name: Enemy-Sprites to billboard
@@ -180,19 +179,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
---- !u!114 &3919247897458855520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7954954704475819259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27cb9241a12e981488f46f946c3f7a31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sourcePrefab: {fileID: 7954954704475819259}
 --- !u!114 &-6071480786911197665
 MonoBehaviour:
   m_ObjectHideFlags: 0

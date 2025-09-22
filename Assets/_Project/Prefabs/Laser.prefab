@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5670789857964180979}
   - component: {fileID: 3928020159166130788}
   - component: {fileID: 3180129165394455223}
-  - component: {fileID: -1839900438318479101}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -162,16 +161,3 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   weaponConfig: {fileID: 11400000, guid: 1397df06e412d494b8414862a00c1c23, type: 2}
---- !u!114 &-1839900438318479101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6208491058016156243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27cb9241a12e981488f46f946c3f7a31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sourcePrefab: {fileID: 6208491058016156243}
