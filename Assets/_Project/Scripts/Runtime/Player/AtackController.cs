@@ -59,7 +59,7 @@ public class AtackController : MonoBehaviour
         {
             Debug.Log("Switched to Weapon 1");
             weaponConfig = weaponConfigs[0];
-            laserPrefab.GetComponent<LineRenderer>().startColor = weaponConfig.projectileColor;
+            
             range = weaponConfig.range;
             fireRate = weaponConfig.fireRate;
             damagePerShot = weaponConfig.damage;
@@ -68,7 +68,7 @@ public class AtackController : MonoBehaviour
         {
             Debug.Log("Switched to Weapon 2");
             weaponConfig = weaponConfigs[1];
-            laserPrefab.GetComponent<LineRenderer>().startColor = weaponConfig.projectileColor;
+            
             range = weaponConfig.range;
             fireRate = weaponConfig.fireRate;
             damagePerShot = weaponConfig.damage;
