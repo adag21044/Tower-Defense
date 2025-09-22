@@ -10,8 +10,9 @@ public class LaserProjectile : MonoBehaviour
     [HideInInspector] public float damage;
     [HideInInspector] public LayerMask hitMask;
 
-    private float lifeTimer;
+    //private float lifeTimer;
     [SerializeField] private WeaponConfig weaponConfig;
+    private float lifeTimer = 0f;   
 
     private void OnEnable()
     {
@@ -19,15 +20,15 @@ public class LaserProjectile : MonoBehaviour
         {
             damage = weaponConfig.damage;
             speed = weaponConfig.projectileSpeed;
-            maxLife = weaponConfig.range / weaponConfig.projectileSpeed;
+            maxLife = weaponConfig.maxLife;
         }
-        
+
         Debug.Log($"[Laser] Speed set to {speed}");
         Debug.Log($"[Laser] MaxLife set to {maxLife}");
         Debug.Log($"[Laser] Damage set to {damage}");
         ToastManager.Instance.ShowToast("Laser setted up!");
-        // Reset transient state whenever pulled from pool
-        lifeTimer = 0f;
+
+
         // tip: reset trail/particle if needed (clear trail, restart particle, etc.)
         var trail = GetComponent<TrailRenderer>();
         if (trail) trail.Clear();
