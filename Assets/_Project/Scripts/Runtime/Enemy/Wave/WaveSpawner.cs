@@ -137,8 +137,10 @@ public class WaveSpawner : MonoBehaviour
 
         // Boss check (5/10/15…)
         if (bossEnemy != null && bossEveryN > 0 && ((currentWaveNumber + 1) % bossEveryN == 0))
+        {
             SpawnOne(bossEnemy, currentWaveNumber, isBoss: true);
-
+            Debug.Log("[WaveSpawner] Boss spawned for wave " + (currentWaveNumber + 1));
+        }
         // Optional: wait for clear
         if (def.waitForClear)
         {

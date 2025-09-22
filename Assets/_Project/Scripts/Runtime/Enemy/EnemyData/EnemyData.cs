@@ -12,4 +12,5 @@ public class EnemyData : ScriptableObject
 
     [Header("Path")]
     public PathData pathData; 
+    public bool isBoss = false;
 }

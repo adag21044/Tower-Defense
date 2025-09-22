@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1385445843f81da4ca720979c06e5eb6, type: 3}
-  m_Name: Enemy1
+  m_Name: Enemy3-Boss
   m_EditorClassIdentifier: 
-  enemyName: Enemy1
-  prefab: {fileID: 7954954704475819259, guid: 5b64a75bf209f9e4ebcdb58a9b75b188, type: 3}
-  moveSpeed: 2
-  color: {r: 0, g: 0, b: 0, a: 1}
-  maxHealth: 50
+  enemyName: Enemy
+  prefab: {fileID: 536496045556235249, guid: 6a9ab230e8a6c044a83abdfc985830aa, type: 3}
+  moveSpeed: 3
+  color: {r: 1, g: 0, b: 0, a: 1}
+  maxHealth: 150
   damage: 20
   pathData: {fileID: 11400000, guid: 75b845f39d41ccd4c8c23fc4005aecdb, type: 2}
+  isBoss: 1

@@ -2335,6 +2335,7 @@ MonoBehaviour:
   pauseManager: {fileID: 394866935}
   scoreManager: {fileID: 331882978}
   mainMenuPanel: {fileID: 609948621}
+  waveSpawner: {fileID: 0}
   currentState: 0
 --- !u!4 &397982284
 Transform:
@@ -2781,7 +2782,7 @@ MonoBehaviour:
   loopLastWave: 0
   timeBetweenWaves: 5
   earlyCallKey: 32
-  bossEnemy: {fileID: 11400000, guid: df8f5f01e4f7b4d4baec74f0710cd642, type: 2}
+  bossEnemy: {fileID: 11400000, guid: de3df807371dc694ba17f89ebea9528a, type: 2}
   bossEveryN: 5
   hpMultiplierPerWave: 0.15
   speedMultiplierPerWave: 0.05
@@ -2789,6 +2790,7 @@ MonoBehaviour:
   - {fileID: 853055023}
   waveLabel: {fileID: 637151758}
   statusLabel: {fileID: 451826111}
+  counting: 1
 --- !u!4 &415936316
 Transform:
   m_ObjectHideFlags: 0
