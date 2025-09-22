@@ -25,10 +25,16 @@ public class EnemyHealthController : MonoBehaviour
         PoolManager.Instance.Prewarm(hitEffectPrefab, 20);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.N))
+            Die();
+    }
+
     public void TakeDamage(float amount)
     {
         if (!canTakeDamage) return;
-        
+
         currentHealth -= amount;
 
         if (currentHealth <= 0)
