@@ -12,7 +12,7 @@ public class LaserProjectile : MonoBehaviour
 
     //private float lifeTimer;
     [SerializeField] private WeaponConfig weaponConfig;
-    private float lifeTimer = 0f;   
+    private float lifeTimer = 0f;
     [SerializeField] private Color projectileColor = Color.red;
 
     private void OnEnable()
@@ -79,4 +79,19 @@ public class LaserProjectile : MonoBehaviour
         if (dir.sqrMagnitude > 0.0001f)
             transform.rotation = Quaternion.LookRotation(dir);
     }
+    
+    public void ApplyConfig(WeaponConfig config)
+    {
+        damage = config.damage;
+        speed = config.projectileSpeed;
+        maxLife = config.range / config.projectileSpeed;
+
+        var lr = GetComponent<LineRenderer>();
+        if (lr != null)
+        {
+            lr.startColor = config.projectileColor;
+            lr.endColor = config.projectileColor;
+        }
+    }
+
 }

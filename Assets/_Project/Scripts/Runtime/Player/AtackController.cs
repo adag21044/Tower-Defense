@@ -59,6 +59,7 @@ public class AtackController : MonoBehaviour
         {
             Debug.Log("Switched to Weapon 1");
             weaponConfig = weaponConfigs[0];
+            laserPrefab.GetComponent<LineRenderer>().startColor = weaponConfig.projectileColor;
             range = weaponConfig.range;
             fireRate = weaponConfig.fireRate;
             damagePerShot = weaponConfig.damage;
@@ -67,6 +68,7 @@ public class AtackController : MonoBehaviour
         {
             Debug.Log("Switched to Weapon 2");
             weaponConfig = weaponConfigs[1];
+            laserPrefab.GetComponent<LineRenderer>().startColor = weaponConfig.projectileColor;
             range = weaponConfig.range;
             fireRate = weaponConfig.fireRate;
             damagePerShot = weaponConfig.damage;
@@ -126,20 +128,23 @@ public class AtackController : MonoBehaviour
             ? PoolManager.Instance.Spawn(laserPrefab, muzzle.position, Quaternion.LookRotation(dir))
             : Instantiate(laserPrefab, muzzle.position, Quaternion.LookRotation(dir));
 
-        audioSource?.Play();
+        audioSource?.PlayOneShot(audioSource.clip);
 
         if (laser.TryGetComponent<LaserProjectile>(out var proj))
         {
             proj.target = target;
-            proj.damage = (int)damagePerShot;
             proj.hitMask = hitMask;
             proj.homing = true;
+
+            // WeaponConfig'i lazer instance'ına uygula
+            proj.ApplyConfig(weaponConfig);
         }
         else
         {
             Debug.LogWarning("Laser prefab does not have LaserProjectile script!");
         }
     }
+
 
     private void OnDrawGizmosSelected()
     {

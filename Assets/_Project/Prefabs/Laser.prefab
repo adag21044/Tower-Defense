@@ -101,7 +101,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 1}
+      key0: {r: 0.07450981, g: 1, b: 0, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -161,3 +161,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   weaponConfig: {fileID: 11400000, guid: 1397df06e412d494b8414862a00c1c23, type: 2}
+  projectileColor: {r: 1, g: 0, b: 0, a: 1}
