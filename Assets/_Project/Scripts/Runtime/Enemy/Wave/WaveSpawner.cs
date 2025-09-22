@@ -140,6 +140,7 @@ public class WaveSpawner : MonoBehaviour
         {
             SpawnOne(bossEnemy, currentWaveNumber, isBoss: true);
             Debug.Log("[WaveSpawner] Boss spawned for wave " + (currentWaveNumber + 1));
+            ToastManager.Instance.ShowToast("Boss Incoming!");
         }
         // Optional: wait for clear
         if (def.waitForClear)
