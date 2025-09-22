@@ -52,4 +52,12 @@ public class BaseHealthController : MonoBehaviour
         Debug.Log("Base took damage because an enemy reached the end.");
         ToastManager.Instance.ShowToast("Base took 50 damage!");
     }
+
+    // for testin purposes
+    [ContextMenu("Set Health Infinite")]
+    public void SetHealthInfinite()
+    {
+        health = int.MaxValue;
+        baseHealthBarUI.UpdateHealthBar(health, maxHealth);
+    }
 }

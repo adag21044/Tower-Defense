@@ -27,6 +27,7 @@ public class AtackController : MonoBehaviour
     [SerializeField] private bool enableLaser = true;
 
     [SerializeField] private WeaponConfig weaponConfig;
+    [SerializeField] private WeaponConfig[] weaponConfigs; 
 
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
@@ -38,6 +39,7 @@ public class AtackController : MonoBehaviour
         range = weaponConfig.range;
         fireRate = weaponConfig.fireRate;
         damagePerShot = weaponConfig.damage;
+        weaponConfig = weaponConfigs[0]; // default
 
     }
 
@@ -51,6 +53,24 @@ public class AtackController : MonoBehaviour
         }
 
         TryFireAtTarget(target);
+
+        // switch weapon config with number keys for testing
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Debug.Log("Switched to Weapon 1");
+            weaponConfig = weaponConfigs[0];
+            range = weaponConfig.range;
+            fireRate = weaponConfig.fireRate;
+            damagePerShot = weaponConfig.damage;
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Debug.Log("Switched to Weapon 2");
+            weaponConfig = weaponConfigs[1];
+            range = weaponConfig.range;
+            fireRate = weaponConfig.fireRate;
+            damagePerShot = weaponConfig.damage;
+        }
     }
 
     private Transform FindClosestTarget()

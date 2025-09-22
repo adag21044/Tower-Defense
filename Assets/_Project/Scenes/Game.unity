@@ -7137,6 +7137,9 @@ MonoBehaviour:
   meleeCooldown: 1
   enableLaser: 1
   weaponConfig: {fileID: 11400000, guid: 1397df06e412d494b8414862a00c1c23, type: 2}
+  weaponConfigs:
+  - {fileID: 11400000, guid: 1397df06e412d494b8414862a00c1c23, type: 2}
+  - {fileID: 11400000, guid: 7a6a3bf433b95d0438fed6d58431c984, type: 2}
   audioSource: {fileID: 196888160}
 --- !u!1 &1464500200
 GameObject:

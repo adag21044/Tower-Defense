@@ -9,4 +9,5 @@ public class WeaponConfig : ScriptableObject
     public float projectileSpeed = 20f;
     public float range = 15f;
     public float maxLife = 2f;
+    public Color projectileColor = Color.red;
 }

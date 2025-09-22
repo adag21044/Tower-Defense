@@ -13,6 +13,7 @@ public class LaserProjectile : MonoBehaviour
     //private float lifeTimer;
     [SerializeField] private WeaponConfig weaponConfig;
     private float lifeTimer = 0f;   
+    [SerializeField] private Color projectileColor = Color.red;
 
     private void OnEnable()
     {
@@ -21,6 +22,7 @@ public class LaserProjectile : MonoBehaviour
             damage = weaponConfig.damage;
             speed = weaponConfig.projectileSpeed;
             maxLife = weaponConfig.maxLife;
+            projectileColor = weaponConfig.projectileColor;
         }
 
         Debug.Log($"[Laser] Speed set to {speed}");

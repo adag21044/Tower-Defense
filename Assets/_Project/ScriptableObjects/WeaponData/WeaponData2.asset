@@ -17,3 +17,4 @@ MonoBehaviour:
   projectileSpeed: 20
   range: 15
   maxLife: 2
+  projectileColor: {r: 0.075610876, g: 1, b: 0, a: 1}
