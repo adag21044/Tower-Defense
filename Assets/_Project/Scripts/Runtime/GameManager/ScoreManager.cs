@@ -8,13 +8,13 @@ public class ScoreManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // Event’e abone ol
+        // Subscribe to the event
         EnemyHealthController.OnEnemyDeath += IncreaseScore;
     }
 
     private void OnDisable()
     {
-        // Event’ten çık
+        // Unsubscribe from the event
         EnemyHealthController.OnEnemyDeath -= IncreaseScore;
     }
 

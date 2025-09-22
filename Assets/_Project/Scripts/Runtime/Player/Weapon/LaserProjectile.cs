@@ -10,7 +10,6 @@ public class LaserProjectile : MonoBehaviour
     [HideInInspector] public float damage;
     [HideInInspector] public LayerMask hitMask;
 
-    //private float lifeTimer;
     [SerializeField] private WeaponConfig weaponConfig;
     private float lifeTimer = 0f;
     [SerializeField] private Color projectileColor = Color.red;
@@ -30,8 +29,6 @@ public class LaserProjectile : MonoBehaviour
         Debug.Log($"[Laser] Damage set to {damage}");
         ToastManager.Instance.ShowToast("Laser setted up!");
 
-
-        // tip: reset trail/particle if needed (clear trail, restart particle, etc.)
         var trail = GetComponent<TrailRenderer>();
         if (trail) trail.Clear();
     }
@@ -67,7 +64,6 @@ public class LaserProjectile : MonoBehaviour
                 health.TakeDamage(damage);
             }
 
-            // TODO: spawn hit VFX via pool if you want
             PoolManager.Instance.Despawn(gameObject);
             return;
         }

@@ -26,7 +26,7 @@ public class DebugStats : MonoBehaviour
         string text = $"FPS: {fps:0.}";
 
 #if UNITY_EDITOR
-        // Drawcall sayısı sadece editorde erişilebilir
+        // only available in Editor
         int drawCalls = UnityStats.drawCalls;
         text += $" | DrawCalls: {drawCalls}";
 #endif

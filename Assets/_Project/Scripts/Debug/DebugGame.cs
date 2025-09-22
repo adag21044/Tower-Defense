@@ -10,20 +10,16 @@ public class DebugGame : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F3)) ShowSpawnPoints();
     }
 
-    // Waypoint ve path çizimlerini görmek
     [System.Obsolete]
     private void ShowWaypointsandGizmos()
     {
-        // Sahnedeki tüm EnemyMover’ları bul
+        // Find all EnemyMover instances in the scene
         var movers = FindObjectsOfType<EnemyMover>();
         foreach (var mover in movers)
         {
-            // EnemyMover zaten OnDrawGizmos ile çiziyor
-            // Ama burada debug log atabilirsin
             Debug.Log($"[DebugGame] EnemyMover {mover.name} has {mover.transform.childCount} waypoints");
         }
 
-        // Ayrıca sahnedeki Path objelerini bulup çizdirebilirsin
         var paths = FindObjectsOfType<EnemyPath>();
         foreach (var path in paths)
         {
@@ -35,28 +31,25 @@ public class DebugGame : MonoBehaviour
         }
     }
 
-    // Tüm düşmanları anında yok etmek
     [System.Obsolete]
     private void NukeAllEnemies()
     {
         var enemies = FindObjectsOfType<EnemyController>();
         foreach (var enemy in enemies)
         {
-            // Havuz sistemine geri gönder
+            // return to pool instead of Destroy
             PoolManager.Instance.Despawn(enemy.gameObject);
         }
 
         Debug.Log($"[DebugGame] Nuked {enemies.Length} enemies.");
     }
 
-    // Spawn noktalarını göstermek
     [System.Obsolete]
     private void ShowSpawnPoints()
     {
         var spawners = FindObjectsOfType<WaveSpawner>();
         foreach (var spawner in spawners)
         {
-            // Spawner’daki wave’lerdeki spawn transformlarını çek
             var wavesField = spawner.GetType()
                 .GetField("waves", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 

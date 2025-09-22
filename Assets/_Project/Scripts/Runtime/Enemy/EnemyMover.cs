@@ -6,10 +6,10 @@ public class EnemyMover : MonoBehaviour
 {
     [Header("Move")]
     [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float waypointThreshold = 0.05f; // float karşılaştırmada tolerans
+    [SerializeField] private float waypointThreshold = 0.05f; 
 
     [Header("Path")]
-    [SerializeField] private Transform[] waypoints; // Inspector’dan ayarlanacak
+    [SerializeField] private Transform[] waypoints; 
     private int idx = 0;
     public static event Action OnEnemyReachedEnd;
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
@@ -51,7 +51,6 @@ public class EnemyMover : MonoBehaviour
     {
         if (waypoints == null || waypoints.Length == 0) return;
 
-        // Waypointler arası çizgi
         Gizmos.color = Color.green;
         for (int i = 0; i < waypoints.Length - 1; i++)
         {
@@ -61,7 +60,6 @@ public class EnemyMover : MonoBehaviour
             }
         }
 
-        // Her waypoint için küçük bir küre çiz
         Gizmos.color = Color.yellow;
         foreach (var wp in waypoints)
         {
@@ -69,14 +67,12 @@ public class EnemyMover : MonoBehaviour
                 Gizmos.DrawSphere(wp.position, 0.2f);
         }
 
-        // Başlangıç noktası (Mavi)
         if (waypoints[0] != null)
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawSphere(waypoints[0].position, 0.3f);
         }
 
-        // Bitiş noktası (Kırmızı)
         if (waypoints[waypoints.Length - 1] != null)
         {
             Gizmos.color = Color.red;

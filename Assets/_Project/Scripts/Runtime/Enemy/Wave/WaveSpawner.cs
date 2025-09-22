@@ -45,7 +45,6 @@ public class WaveSpawner : MonoBehaviour
 
     private void Update()
     {
-        // Eğer oyun bitti ise tamamen çık
         if (GameManager.Instance != null && GameManager.Instance.CurrentState == GameManager.GameState.GameOver)
             return;
 
@@ -93,9 +92,8 @@ public class WaveSpawner : MonoBehaviour
             activeRoutine = null;
         }
 
-        // Spawner tamamen dursun
         counting = false;
-        enabled = false; // WaveSpawner update loop’u artık çalışmaz
+        enabled = false; 
 
         Debug.Log("[WaveSpawner] Stopped due to Retry.");
     }
@@ -260,9 +258,6 @@ public class WaveSpawner : MonoBehaviour
         else
             statusLabel.text = $"Wave: {waveIndex + 1}\nEnemies: {EnemyCounter.ActiveCount}";
     }
-    
-
-
 }
 
 

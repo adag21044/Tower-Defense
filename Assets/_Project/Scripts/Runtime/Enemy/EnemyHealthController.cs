@@ -58,6 +58,6 @@ public class EnemyHealthController : MonoBehaviour
             if (ps != null) ps.Play();
         }
 
-        OnEnemyDeath?.Invoke(); // her durumda tetiklensin
+        OnEnemyDeath?.Invoke(); 
     }
 }

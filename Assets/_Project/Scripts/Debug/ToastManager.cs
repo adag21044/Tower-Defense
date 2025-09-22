@@ -6,8 +6,8 @@ public class ToastManager : MonoBehaviour
 {
     public static ToastManager Instance { get; private set; }
     [SerializeField] private GameObject toastPrefab;
-    [SerializeField] private Transform parentCanvas; // Canvas referansı
-    [SerializeField] private float duration = 2f;    // Gösterim süresi
+    [SerializeField] private Transform parentCanvas; // Canvas ref
+    [SerializeField] private float duration = 2f;    // duration of toast
 
     private void Awake()
     {

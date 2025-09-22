@@ -83,10 +83,10 @@ public class GameManager : MonoBehaviour
 
     public void Retry()
     {
-        // Sayacı sıfırla
+        // reset enemy counter
         EnemyCounter.Reset();
 
-        // Sahneyi yeniden yükle
+        // Reload current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         // Reset Game State
@@ -103,11 +103,10 @@ public class GameManager : MonoBehaviour
         pauseManager.ResumeGame();
         if (retryPanel != null) retryPanel.SetActive(false);
 
-        // Player ve Base referanslarını yeniden bul
+        // Find references again
         playerController = FindAnyObjectByType<PlayerController>();
         baseHealthController = FindAnyObjectByType<BaseHealthController>();
 
-        // Dalga sistemi için sayaç sıfırlansın
         var waveSpawner = FindAnyObjectByType<WaveSpawner>();
         if (waveSpawner != null) EnemyCounter.Reset();
     }
@@ -122,7 +121,7 @@ public class GameManager : MonoBehaviour
 
         if (waveSpawner != null)
         {
-            waveSpawner.enabled = false; // tamamen durdur
+            waveSpawner.enabled = false; 
         }
     }
 

@@ -15,9 +15,9 @@ public class PauseManager : MonoBehaviour
 
     public void InitalPauseGame()
     {
-        Time.timeScale = 0f; // oyun durur
+        Time.timeScale = 0f; // stop game
         isPaused = true;
-        pausePanel.SetActive(false); // sadece menü görünsün, pause menüsü değil
+        pausePanel.SetActive(false); 
     }
 
     public void PauseGame()
