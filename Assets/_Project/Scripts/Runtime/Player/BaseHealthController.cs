@@ -7,6 +7,7 @@ public class BaseHealthController : MonoBehaviour
     [SerializeField] private int maxHealth = 200;
     [SerializeField] private HealthBarUI baseHealthBarUI;
     public event Action OnBaseDestroyed;
+    [SerializeField] private bool canTakeDamage = true;
 
     private void Start()
     {
@@ -15,6 +16,8 @@ public class BaseHealthController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (!canTakeDamage) return;
+        
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth);
 

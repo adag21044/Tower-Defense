@@ -13,6 +13,7 @@ public class EnemyHealthController : MonoBehaviour
     [SerializeField] private GameObject hitEffectPrefab;
 
     public static event Action OnEnemyDeath; // global event for score, currency, etc.
+    [SerializeField] private bool canTakeDamage = true;
 
     private void Awake()
     {
@@ -26,6 +27,8 @@ public class EnemyHealthController : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        if (!canTakeDamage) return;
+        
         currentHealth -= amount;
 
         if (currentHealth <= 0)

@@ -9,6 +9,7 @@ public class PlayerHealthController : MonoBehaviour
 
     public event Action OnDeath;
     public event Action<int> OnHealthChanged;
+    [SerializeField] private bool canTakeDamage = true;
 
     private void Start()
     {
@@ -17,6 +18,8 @@ public class PlayerHealthController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (!canTakeDamage) return;
+        
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth);
 
