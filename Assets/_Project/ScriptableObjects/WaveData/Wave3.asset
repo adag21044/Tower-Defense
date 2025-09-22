@@ -9,13 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: WaveDefinition2
-  m_EditorClassIdentifier: Assembly-CSharp::WaveDefinition
-  waveName: Wave2
+  m_Script: {fileID: 11500000, guid: 64d768c2a6368c4419c76e246a5143e4, type: 3}
+  m_Name: Wave3
+  m_EditorClassIdentifier: 
+  waveName: Wave
   entries:
+  - enemy: {fileID: 11400000, guid: 0d65a9202ce12c44c819c98eb9b3b852, type: 2}
+    count: 2
+    rate: 2
   - enemy: {fileID: 11400000, guid: df8f5f01e4f7b4d4baec74f0710cd642, type: 2}
     count: 3
     rate: 3
+  - enemy: {fileID: 11400000, guid: df8f5f01e4f7b4d4baec74f0710cd642, type: 2}
+    count: 4
+    rate: 4
   waitForClear: 0
   extraDelayAfter: 5
