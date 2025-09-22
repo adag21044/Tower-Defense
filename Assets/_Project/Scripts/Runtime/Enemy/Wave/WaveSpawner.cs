@@ -31,12 +31,13 @@ public class WaveSpawner : MonoBehaviour
 
     private int waveIndex;
     private float countdown;
-    private bool counting = true;
+    public bool counting = true;
+
     private Coroutine activeRoutine;
 
     private void Awake()
     {
-        
+
         waveIndex = 0;
         countdown = timeBetweenWaves;
         UpdateWaveLabel();
@@ -45,13 +46,17 @@ public class WaveSpawner : MonoBehaviour
 
     private void Update()
     {
-        // Early-call via key while counting
+        // Eğer oyun bitti ise tamamen çık
+        if (GameManager.Instance != null && GameManager.Instance.CurrentState == GameManager.GameState.GameOver)
+            return;
+
+        // Normal flow
         if (counting && Input.GetKeyDown(earlyCallKey))
             CallNextWaveEarly();
 
         if (!counting)
         {
-            UpdateStatusLabel(); // show remaining enemies
+            UpdateStatusLabel(); 
             return;
         }
 
@@ -69,6 +74,7 @@ public class WaveSpawner : MonoBehaviour
         UpdateStatusLabel();
     }
 
+
     private void OnEnable()
     {
         GameManager.OnRetry += HandleRetry;
@@ -81,13 +87,20 @@ public class WaveSpawner : MonoBehaviour
 
     private void HandleRetry()
     {
-        EnemyCounter.Reset();
-        waveIndex = 0;
-        countdown = timeBetweenWaves;
-        counting = true;
-        UpdateWaveLabel();
-        UpdateStatusLabel(force: true);
+        // Tüm coroutine’leri durdur
+        if (activeRoutine != null)
+        {
+            StopCoroutine(activeRoutine);
+            activeRoutine = null;
+        }
+
+        // Spawner tamamen dursun
+        counting = false;
+        enabled = false; // WaveSpawner update loop’u artık çalışmaz
+
+        Debug.Log("[WaveSpawner] Stopped due to Retry.");
     }
+
 
     private WaveDefinition GetWaveDefinitionForIndex(int idx)
     {
@@ -100,21 +113,16 @@ public class WaveSpawner : MonoBehaviour
 
     private IEnumerator SpawnWaveRoutine(WaveDefinition def, int currentWaveNumber)
     {
-        if (def == null)
-        {
-            Debug.LogWarning("[WaveSpawner] WaveDefinition is null or finished.");
-            yield break;
-        }
+        if (def == null) yield break;
 
-        // Announce wave
         if (waveLabel) waveLabel.text = $"{def.waveName} ({currentWaveNumber + 1})";
 
-        // Spawn all entries of this wave
         if (def.entries != null)
         {
             foreach (var entry in def.entries)
             {
-                if (entry == null || entry.enemy == null) continue;
+                if (GameManager.Instance != null && GameManager.Instance.CurrentState == GameManager.GameState.GameOver)
+                    yield break; // oyun bittiyse coroutine iptal
 
                 int spawnCount = Mathf.Max(0, entry.count);
                 float spawnRate = Mathf.Max(0.01f, entry.rate);
@@ -250,6 +258,9 @@ public class WaveSpawner : MonoBehaviour
         else
             statusLabel.text = $"Wave: {waveIndex + 1}\nEnemies: {EnemyCounter.ActiveCount}";
     }
+    
+
+
 }
 
 

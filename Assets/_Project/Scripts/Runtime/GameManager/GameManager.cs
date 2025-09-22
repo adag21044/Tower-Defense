@@ -14,7 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PauseManager pauseManager;
     [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private GameObject mainMenuPanel;
-    
+    [SerializeField] private WaveSpawner waveSpawner;
+    public GameState CurrentState => currentState;
+
 
     public static event Action OnStart;
     public static event Action OnRetry;
@@ -117,7 +119,13 @@ public class GameManager : MonoBehaviour
         ToastManager.Instance.ShowToast("Game Over! Try Again?");
         retryPanel.SetActive(true);
         currentState = GameState.GameOver;
+
+        if (waveSpawner != null)
+        {
+            waveSpawner.enabled = false; // tamamen durdur
+        }
     }
+
 
     public void StartGame()
     {
